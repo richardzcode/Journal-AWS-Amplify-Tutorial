@@ -17,7 +17,7 @@ class LoginForm extends AuthPiece {
         const { username, password } = this.inputs;
         logger.debug('username: ' + username);
         Auth.signIn(username, password)
-            .then(data => logger.debug(data))
+            .then(data => this.changeState('signedIn', data))
             .catch(err => logger.error(err));
     }
 

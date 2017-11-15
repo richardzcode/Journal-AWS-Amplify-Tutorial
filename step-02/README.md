@@ -9,6 +9,7 @@ AWS Amplify solved the authentication for developers. Let's use it.
 * [5. Replace Sign In](#5-replace-sign-in)
 * [6. Turn LoginForm into AuthPiece](#6-turn-loginform-into-authpiece)
 * [7. Home page aware of authState](#7-home-page-aware-of-authstate)
+* [8. Run app](#run-app)
 
 ## 1. Prepare
 
@@ -173,7 +174,7 @@ class LoginForm extends AuthPiece {
         const { username, password } = this.inputs;
         logger.debug('username: ' + username);
         Auth.signIn(username, password)
-            .then(data => logger.debug(data))
+            .then(data => this.changeState('signedIn', data))
             .catch(err => logger.error(err));
     }
 
@@ -210,8 +211,8 @@ class LoginForm extends AuthPiece {
 
 Explain a little bit.
 
-1. `handleInputChange` is from `AuthPiece`, it takes saves input value to `this.inputs` with its name.
-2. On button click, `signIn` got called, the method takes input values from `this.inputs` then call `Auth.signIn`
+1. `handleInputChange` is from `AuthPiece`, it saves input value to `this.inputs` with its name.
+2. On button click, `signIn` got called, it reads input values from `this.inputs` then call `Auth.signIn`
 3. Logger is an organized way of logging. Type `LOG_LEVEL = 'DEBUG'` in console log to see debug logs.
 
 Now run app, login. From Greetings on top-right corner we can see LoginForm works. But why is it still show up after sign in success.
@@ -276,4 +277,9 @@ Then, in `src/modules/Home.jsx`, just check `authState` property
             </div>
         );
     }
+```
+
+## 8. Run app
+```
+npm start
 ```
