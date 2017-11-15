@@ -6,6 +6,7 @@ AWS Amplify solved the authentication for developers. Let's use it.
 * [2. Configure AWS Amplify](#2-configure-aws-amplify)
 * [3. Add Authenticator](#3-add-authenticator)
 * [4. Greetings](#4-greetings)
+* [5. Replace Sign In](#5-replace-sign-in)
 
 ## 1. Prepare
 
@@ -94,6 +95,13 @@ const GreetingsTheme = {
     navBar: {
     },
     navRight: {
+    },
+    navButton: {
+        border: '0',
+        background: 'white',
+        color: 'blue',
+        borderBottom: '1px solid',
+        fontSize: '0.8em'
     }
 }
 
@@ -105,3 +113,35 @@ const GreetingsTheme = {
         </Menu.Item>
     </Menu.Menu>
 ```
+
+**Custom Greetings**
+
+Change the greetings
+```
+    <Greetings
+        theme={GreetingsTheme}
+        outGreeting="Welcome"
+        inGreeting={(username) => 'Hi ' + username}
+    />
+```
+
+## 5. Replace Sign In
+
+The default Sign In form is good. However it doesn't fit with our theme. Let's add a Semantic UI [LoginForm](https://react.semantic-ui.com/layouts/login).
+
+Save the form to `src/components/LoginForm.js`.
+
+Then modify `src/modules/Login.jsx`, hide the default SignIn, add our LoginForm
+```
+import { Authenticator, Greetings, SignIn } from 'aws-amplify-react';
+
+    render() {
+        return (
+            <Authenticator hide={[Greetings, SignIn]}>
+                <LoginForm />
+            </Authenticator>
+        )
+    }
+```
+Now, looks better
+![Login Form](login_form.png)

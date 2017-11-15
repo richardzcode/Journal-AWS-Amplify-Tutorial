@@ -16,6 +16,13 @@ const GreetingsTheme = {
     navBar: {
     },
     navRight: {
+    },
+    navButton: {
+        border: '0',
+        background: 'white',
+        color: 'blue',
+        borderBottom: '1px solid',
+        fontSize: '0.8em'
     }
 }
 
@@ -60,7 +67,11 @@ class App extends Component {
                     </Menu.Item>
                     <Menu.Menu position="right">
                         <Menu.Item>
-                            <Greetings theme={GreetingsTheme} />
+                            <Greetings
+                                theme={GreetingsTheme}
+                                outGreeting="Welcome"
+                                inGreeting={(username) => 'Hi ' + username}
+                            />
                         </Menu.Item>
                     </Menu.Menu>
                 </Menu>
