@@ -7,7 +7,8 @@ AWS Amplify solved the authentication for developers. Let's use it.
 * [3. Add Authenticator](#3-add-authenticator)
 * [4. Greetings](#4-greetings)
 * [5. Replace Sign In](#5-replace-sign-in)
-* [6. Turn LoginForm into AuthPiece](#6-turn-loginform-into-authPiece)
+* [6. Turn LoginForm into AuthPiece](#6-turn-loginform-into-authpiece)
+* [7. Home page aware of authState](#7-home-page-aware-of-authstate)
 
 ## 1. Prepare
 
