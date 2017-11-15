@@ -26,10 +26,10 @@ Go to [Mobile Hub Import](../mobile-hub-import) to quickly setup the backend on 
 **Download config file**
 
 Once project created, open "Hosting and Streaming"
-![Hosting and Streaming](host_and_streaming.png)
+<img src="host_and_streaming.png" width="720px" />
 
 At the bottom of page, "Download aws-exports.js file".
-![Download aws-exports.js file](download_aws_exports.png)
+<img src="download_aws_exports.png" width="720px" />
 
 Download and save to `src` folder
 
@@ -60,7 +60,7 @@ export default class Login extends Component {
 
 Now `npm start`. Login becomes real
 
-<image src="authenticator.png" width="400px" />
+<img src="authenticator.png" width="400px" />
 
 Got ahead sign up and sign in. Create a test user.
 
@@ -83,11 +83,11 @@ export default class Login extends Component {
 }
 ```
 
-`Authenticator` is composed of a group of pieces, `Greetings` is one of them. `hide` defines a list of pieces to be hidden. Try put `SignIn` in list.
+`Authenticator` is composed of a group of pieces, `Greetings` is one of them. `hide` defines a list of pieces to be hidden.
 
 **Greetings on Menu**
 
-What we actually want. Is the greetings on Menu, top-right corner. So we want to edit where the Menu is, `App.js`.
+What we actually want. Is the greetings on top-right corner. Let's edit `src/App.js` to add menu item with Greetings.
 
 First import Greetings
 ```
@@ -150,7 +150,7 @@ import { Authenticator, Greetings, SignIn } from 'aws-amplify-react';
 ```
 Now, looks better
 
-<image src="login_form.png" width="400px" />
+<img src="login_form.png" width="400px" />
 
 ## 6. Turn LoginForm into AuthPiece
 
@@ -215,7 +215,7 @@ Explain a little bit.
 2. On button click, `signIn` got called, it reads input values from `this.inputs` then call `Auth.signIn`
 3. Logger is an organized way of logging. Type `LOG_LEVEL = 'DEBUG'` in console log to see debug logs.
 
-Now run app, login. From Greetings on top-right corner we can see LoginForm works. But why is it still show up after sign in success.
+Now run app, login. From Greetings on top-right corner we can see LoginForm works. But why is LoginForm still show up after sign in success.
 
 **Hide LoginForm after Sign In**
 
