@@ -56,7 +56,9 @@ export default class Login extends Component {
 ```
 
 Now `npm start`. Login becomes real
-![Authenticator](authenticator.png)
+
+<image src="authenticator.png" width="400px" />
+
 Got ahead sign up and sign in. Create a test user.
 
 ## 4. Greetings
