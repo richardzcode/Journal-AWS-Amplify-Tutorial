@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "aws-amplify": "file:../../../../javascript/aws-amplify/packages/aws-amplify",
+    "aws-amplify-react": "file:../../../../javascript/aws-amplify/packages/aws-amplify-react",
+    "aws-sdk": "^2.150.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",

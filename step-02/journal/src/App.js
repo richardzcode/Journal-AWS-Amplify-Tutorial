@@ -3,11 +3,13 @@ import { Router, Route, Link, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { Menu } from 'semantic-ui-react';
 
+import Amplify from 'aws-amplify';
+import aws_exports from './aws-exports';
+
 import Home from './modules/Home';
 import Login from './modules/Login';
 
-import logo from './logo.svg';
-import './App.css';
+Amplify.configure(aws_exports);
 
 class App extends Component {
     constructor(props) {
