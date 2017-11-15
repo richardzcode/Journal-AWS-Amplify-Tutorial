@@ -1,0 +1,17 @@
+{
+  "name": "mobile-hub-quick-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "amazon-cognito-identity-js": "^1.16.0",
+    "aws-sdk": "^2.49.0",
+    "aws-serverless-express": "^2.2.0",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {},
+  "author": "Richard Zhang",
+  "license": "MIT"
+}
