@@ -30,6 +30,8 @@ class App extends Component {
     constructor(props) {
         super(props);
 
+        this.handleStateChange = this.handleStateChange.bind(this);
+
         this.state = { active_menu: 'home' }
     }
 
@@ -54,7 +56,15 @@ class App extends Component {
         });
     }
 
+    handleStateChange(authState, authData) {
+        this.setState({
+            authState: authState,
+            authData: authData
+        });
+    }
+
   render() {
+    const { authState, authData } = this.state;
     return (
             <Router history={this.history}>
             <div>
@@ -71,12 +81,15 @@ class App extends Component {
                                 theme={GreetingsTheme}
                                 outGreeting="Welcome"
                                 inGreeting={(username) => 'Hi ' + username}
+                                onStateChange={this.handleStateChange}
                             />
                         </Menu.Item>
                     </Menu.Menu>
                 </Menu>
                 <Switch>
-                    <Route exact path="/" name="home" component={Home}/>
+                    <Route exact path="/" name="home" render={(props) => (
+                        <Home {...props} authState={authState} authData={authData} />
+                    )}/>
                     <Route exact path="/login" name="login" component={Login}/>
                 </Switch>
             </div>

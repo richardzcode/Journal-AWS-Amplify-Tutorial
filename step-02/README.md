@@ -7,6 +7,7 @@ AWS Amplify solved the authentication for developers. Let's use it.
 * [3. Add Authenticator](#3-add-authenticator)
 * [4. Greetings](#4-greetings)
 * [5. Replace Sign In](#5-replace-sign-in)
+* [6. Turn LoginForm into AuthPiece](#6-turn-loginform-into-authPiece)
 
 ## 1. Prepare
 
@@ -148,3 +149,130 @@ import { Authenticator, Greetings, SignIn } from 'aws-amplify-react';
 Now, looks better
 
 <image src="login_form.png" width="400px" />
+
+## 6. Turn LoginForm into AuthPiece
+
+The LoginForm actually doesn't do anything at this moment. We need to hook it up with Amplify Auth.
+
+First we turn LoginFrom from const to component. `AuthPiece` is the base class in Amplify Auth components which has some built-in functions to help integrate with Auth. Let's extend from it.
+```
+import { Auth, Logger } from 'aws-amplify';
+import { AuthPiece } from 'aws-amplify-react';
+
+const logger = new Logger('LoginForm');
+
+class LoginForm extends AuthPiece {
+    constructor(props) {
+        super(props);
+
+        this.signIn = this.signIn.bind(this);
+    }
+
+    signIn() {
+        const { username, password } = this.inputs;
+        logger.debug('username: ' + username);
+        Auth.signIn(username, password)
+            .then(data => logger.debug(data))
+            .catch(err => logger.error(err));
+    }
+
+    ...
+
+    render() {
+        ...
+              <Form.Input
+                fluid
+                icon='user'
+                iconPosition='left'
+                placeholder='Username'
+                name="username"
+                onChange={this.handleInputChange}
+              />
+              <Form.Input
+                fluid
+                icon='lock'
+                iconPosition='left'
+                placeholder='Password'
+                type='password'
+                name="password"
+                onChange={this.handleInputChange}
+              />
+              <Button
+                    color='teal'
+                    fluid
+                    size='large'
+                    onClick={this.signIn}
+              >Login</Button>
+        ...
+    }
+```
+
+Explain a little bit.
+
+1. `handleInputChange` is from `AuthPiece`, it takes saves input value to `this.inputs` with its name.
+2. On button click, `signIn` got called, the method takes input values from `this.inputs` then call `Auth.signIn`
+3. Logger is an organized way of logging. Type `LOG_LEVEL = 'DEBUG'` in console log to see debug logs.
+
+Now run app, login. From Greetings on top-right corner we can see LoginForm works. But why is it still show up after sign in success.
+
+**Hide LoginForm after Sign In**
+
+Every AuthPiece got `authState` property. So just check `authState` in `render` method
+```
+    render() {
+        const { authState } = this.props;
+        if (authState === 'signedIn') { return null; }
+
+        ...
+```
+
+## 7. Home page aware of authState
+
+Now sign in works. How does Home page know if user signed in or not?
+
+Remember we have a `Greetings` on menu? Listen to its `onStateChange` event, then pass to Home component in router.
+
+In `src/App.js`
+```
+    constructor(props) {
+        ...
+        this.handleStateChange = this.handleStateChange.bind(this);
+    }
+
+    handleStateChange(authState, authData) {
+        this.setState({
+            authState: authState,
+            authData: authData
+        });
+    }
+
+    
+```
+
+```
+        <Greetings
+            theme={GreetingsTheme}
+            outGreeting="Welcome"
+            inGreeting={(username) => 'Hi ' + username}
+            onStateChange={this.handleStateChange}
+        />
+```
+
+```
+        <Route exact path="/" name="home" render={(props) => (
+            <Home {...props} authState={authState} authData={authData} />
+        )}/>
+```
+
+Then, in `src/modules/Home.jsx`, just check `authState` property
+```
+    render() {
+        const { authState, authData } = this.props;
+        return (
+            <div id="home-module">
+                <Header as="h1">Home</Header>
+                <div>{authState}</div>
+            </div>
+        );
+    }
+```
