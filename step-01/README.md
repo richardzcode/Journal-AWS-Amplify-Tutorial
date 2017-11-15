@@ -1,5 +1,12 @@
 # Step 01 - Create a Basic React App
 
+* [1. Create React App](#1-create-react-app)
+* [2. Add React Router](#2-add-react-router)
+* [3. Add Semantic UI React](#3-add-semantic-ui-react)
+* [4. Menu and Routing](#4-menu-and-routing)
+* [5. Create Home and Login Page](#5-create-home-and-login-page)
+* [6. Run app](#6-run-app)
+
 ## 1. Create React App
 ```
 create-react-app journal

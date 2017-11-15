@@ -2,6 +2,11 @@
 
 AWS Amplify solved the authentication for developers. Let's use it.
 
+* [1. Prepare](#1-prepare)
+* [2. Configure AWS Amplify](#2-configure-aws-amplify)
+* [3. Add Authenticator](#3-add-authenticator)
+* [4. Greetings](#4-greetings)
+
 ## 1. Prepare
 
 Install package, core library and react specific.
