@@ -144,4 +144,5 @@ import { Authenticator, Greetings, SignIn } from 'aws-amplify-react';
     }
 ```
 Now, looks better
-![Login Form](login_form.png)
+
+<image src="login_form.png" width="400px" />
