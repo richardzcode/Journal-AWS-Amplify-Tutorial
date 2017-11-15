@@ -51,3 +51,52 @@ export default class Login extends Component {
 
 Now `npm start`. Login becomes real
 ![Authenticator](authenticator.png)
+Got ahead sign up and sign in. Create a test user.
+
+## 4. Greetings
+
+Notice after sign in, there is a sign out button. It makes sense to have sign out button. However in our case the place is not right.
+
+**Hide Greetings**
+
+Let's hide this one. `src/modules/Login.jsx` becomes:
+```
+import React, { Component } from 'react';
+
+import { Authenticator, Greetings } from 'aws-amplify-react';
+
+export default class Login extends Component {
+    render() {
+        return <Authenticator hide={[Greetings]} />
+    }
+}
+```
+
+`Authenticator` is composed of a group of pieces, `Greetings` is one of them. `hide` defines a list of pieces to be hidden. Try put `SignIn` in list.
+
+**Greetings on Menu**
+
+What we actually want. Is the greetings on Menu, top-right corner. So we want to edit where the Menu is, `App.js`.
+
+First import Greetings
+```
+import { Greetings } from 'aws-amplify-react';
+```
+
+The default styling doesn't fit in our UI, lets add the menu item and remove default theme of Greetings.
+```
+const GreetingsTheme = {
+    navBar: {
+    },
+    navRight: {
+    }
+}
+
+...
+
+    <Menu.Menu position="right">
+        <Menu.Item>
+            <Greetings theme={GreetingsTheme} />
+        </Menu.Item>
+    </Menu.Menu>
+```

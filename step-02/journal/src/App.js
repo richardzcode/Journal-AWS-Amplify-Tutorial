@@ -4,12 +4,20 @@ import { createBrowserHistory } from 'history';
 import { Menu } from 'semantic-ui-react';
 
 import Amplify from 'aws-amplify';
+import { Greetings } from 'aws-amplify-react';
 import aws_exports from './aws-exports';
 
 import Home from './modules/Home';
 import Login from './modules/Login';
 
 Amplify.configure(aws_exports);
+
+const GreetingsTheme = {
+    navBar: {
+    },
+    navRight: {
+    }
+}
 
 class App extends Component {
     constructor(props) {
@@ -50,6 +58,11 @@ class App extends Component {
                     <Menu.Item active={this.state.active_menu === 'login'}>
                         <Link to="/login">Login</Link>
                     </Menu.Item>
+                    <Menu.Menu position="right">
+                        <Menu.Item>
+                            <Greetings theme={GreetingsTheme} />
+                        </Menu.Item>
+                    </Menu.Menu>
                 </Menu>
                 <Switch>
                     <Route exact path="/" name="home" component={Home}/>
