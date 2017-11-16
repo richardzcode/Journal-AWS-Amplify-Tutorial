@@ -23,7 +23,7 @@ class LoginForm extends AuthPiece {
 
     render() {
         const { authState } = this.props;
-        if (authState === 'signedIn') { return null; }
+        if (!['signIn', 'singedOut', 'signedUp'].includes(authState)) { return null; }
 
         return (
             <div className='login-form'>
@@ -77,7 +77,7 @@ class LoginForm extends AuthPiece {
                     </Segment>
                   </Form>
                   <Message>
-                    New to us? <a href='#'>Sign Up</a>
+                    New to us? <a onClick={() => this.changeState('signUp')}>Sign Up</a>
                   </Message>
                 </Grid.Column>
               </Grid>

@@ -9,7 +9,8 @@ AWS Amplify solved the authentication for developers. Let's use it.
 * [5. Replace Sign In](#5-replace-sign-in)
 * [6. Turn LoginForm into AuthPiece](#6-turn-loginform-into-authpiece)
 * [7. Home page aware of authState](#7-home-page-aware-of-authstate)
-* [8. Run app](#run-app)
+* [8. Sign Up](#8-sign-up)
+* [9. Run app](#9-run-app)
 
 ## 1. Prepare
 
@@ -219,11 +220,11 @@ Now run app, login. From Greetings on top-right corner we can see LoginForm work
 
 **Hide LoginForm after Sign In**
 
-Every AuthPiece got `authState` property. So just check `authState` in `render` method
+Every AuthPiece got `authState` property. So just check `authState` in `render` method. LoginForm would show up in three states: 'signIn', 'signedOut', 'signedUp'
 ```
     render() {
         const { authState } = this.props;
-        if (authState === 'signedIn') { return null; }
+        if (!['signIn', 'signedOut', 'signedUp'].includes(authState)) { return null; }
 
         ...
 ```
@@ -279,7 +280,19 @@ Then, in `src/modules/Home.jsx`, just check `authState` property
     }
 ```
 
-## 8. Run app
+## 8. Sign Up
+
+LoginForm has a 'Sign Up' link. We want to show Sign Up form when user clicks it. This is very simple, just call `this.changeState('signUp')` on click event. This is an AuthPiece method. The method notifies `Authenticator` about state change, and then `Authenticator` notify all the Auth Pieces it contains to render properly.
+
+```
+        <Message>
+            New to us? <a onClick={() => this.changeState('signUp')}>Sign Up</a>
+        </Message>
+```
+
+Now on click we'll see Sign Up form, but it is the default form. Go through the same process like LoginForm to change it.
+
+## 9. Run app
 ```
 npm start
 ```
