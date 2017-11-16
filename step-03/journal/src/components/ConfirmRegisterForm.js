@@ -4,26 +4,35 @@ import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { Auth, Logger } from 'aws-amplify';
 import { AuthPiece } from 'aws-amplify-react';
 
-const logger = new Logger('LoginForm');
+const logger = new Logger('ConfirmRegisterForm');
 
-class LoginForm extends AuthPiece {
+class ConfirmRegisterForm extends AuthPiece {
     constructor(props) {
         super(props);
 
-        this.signIn = this.signIn.bind(this);
+        this.confirm = this.confirm.bind(this);
+        this.resend = this.resend.bind(this);
     }
 
-    signIn() {
-        const { username, password } = this.inputs;
+    confirm() {
+        const { username, code } = this.inputs;
         logger.debug('username: ' + username);
-        Auth.signIn(username, password)
-            .then(data => this.changeState('signedIn', data))
-            .catch(err => logger.error(err));
+        Auth.confirmSignUp(username, code)
+            .then(data => this.changeState('signIn', data))
+            .catch(err => this.error(err));
+    }
+
+    resend() {
+        const { username } = this.inputs;
+        logger.debug('username: ' + username);
+        Auth.resendSignUp(username)
+            .then(() => logger.debug('code resent'))
+            .catch(err => this.error(err));
     }
 
     render() {
         const { authState } = this.props;
-        if (!['signIn', 'singedOut', 'signedUp'].includes(authState)) { return null; }
+        if ('confirmSignUp' !== authState) { return null; }
 
         return (
             <div className='login-form'>
@@ -46,7 +55,7 @@ class LoginForm extends AuthPiece {
               >
                 <Grid.Column style={{ maxWidth: 450 }}>
                   <Header as='h2' color='teal' textAlign='center'>
-                    {' '}Log-in to your account
+                    {' '}Confirm your registration
                   </Header>
                   <Form size='large'>
                     <Segment stacked>
@@ -60,24 +69,30 @@ class LoginForm extends AuthPiece {
                       />
                       <Form.Input
                         fluid
-                        icon='lock'
+                        icon='puzzle'
                         iconPosition='left'
-                        placeholder='Password'
-                        type='password'
-                        name="password"
+                        placeholder='Code'
+                        name="code"
                         onChange={this.handleInputChange}
                       />
 
-                      <Button
-                            color='teal'
-                            fluid
-                            size='large'
-                            onClick={this.signIn}
-                      >Login</Button>
+                      <Button.Group>
+                          <Button
+                                color='teal'
+                                size='large'
+                                onClick={this.confirm}
+                          >Confirm</Button>
+                          <Button.Or />
+                          <Button
+                                color='teal'
+                                size='large'
+                                onClick={this.resend}
+                          >Resend</Button>
+                      </Button.Group>
                     </Segment>
                   </Form>
                   <Message>
-                    New to us? <a onClick={() => this.changeState('signUp')}>Sign Up</a>
+                    Back to <a onClick={() => this.changeState('signIn')}>Sign In</a>
                   </Message>
                 </Grid.Column>
               </Grid>
@@ -86,4 +101,4 @@ class LoginForm extends AuthPiece {
     }
 }
 
-export default LoginForm
+export default ConfirmRegisterForm

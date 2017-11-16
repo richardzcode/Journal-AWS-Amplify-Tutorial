@@ -6,11 +6,8 @@ AWS Amplify solved the authentication for developers. Let's use it.
 * [2. Configure AWS Amplify](#2-configure-aws-amplify)
 * [3. Add Authenticator](#3-add-authenticator)
 * [4. Greetings](#4-greetings)
-* [5. Replace Sign In](#5-replace-sign-in)
-* [6. Turn LoginForm into AuthPiece](#6-turn-loginform-into-authpiece)
-* [7. Home page aware of authState](#7-home-page-aware-of-authstate)
-* [8. Sign Up](#8-sign-up)
-* [9. Run app](#9-run-app)
+* [5. Home page aware of authState](#5-home-page-aware-of-authstate)
+* [6. Run app](#6-run-app)
 
 ## 1. Prepare
 
@@ -131,109 +128,11 @@ Change the greetings
     />
 ```
 
-## 5. Replace Sign In
-
-The default Sign In form is good. However it doesn't fit with our theme. Let's add a Semantic UI [LoginForm](https://react.semantic-ui.com/layouts/login).
-
-Save the form to `src/components/LoginForm.js`.
-
-Then modify `src/modules/Login.jsx`, hide the default SignIn, add our LoginForm
-```
-import { Authenticator, Greetings, SignIn } from 'aws-amplify-react';
-
-    render() {
-        return (
-            <Authenticator hide={[Greetings, SignIn]}>
-                <LoginForm />
-            </Authenticator>
-        )
-    }
-```
-Now, looks better
-
-<img src="login_form.png" width="400px" />
-
-## 6. Turn LoginForm into AuthPiece
-
-The LoginForm actually doesn't do anything at this moment. We need to hook it up with Amplify Auth.
-
-First we turn LoginFrom from const to component. `AuthPiece` is the base class in Amplify Auth components which has some built-in functions to help integrate with Auth. Let's extend from it.
-```
-import { Auth, Logger } from 'aws-amplify';
-import { AuthPiece } from 'aws-amplify-react';
-
-const logger = new Logger('LoginForm');
-
-class LoginForm extends AuthPiece {
-    constructor(props) {
-        super(props);
-
-        this.signIn = this.signIn.bind(this);
-    }
-
-    signIn() {
-        const { username, password } = this.inputs;
-        logger.debug('username: ' + username);
-        Auth.signIn(username, password)
-            .then(data => this.changeState('signedIn', data))
-            .catch(err => logger.error(err));
-    }
-
-    ...
-
-    render() {
-        ...
-              <Form.Input
-                fluid
-                icon='user'
-                iconPosition='left'
-                placeholder='Username'
-                name="username"
-                onChange={this.handleInputChange}
-              />
-              <Form.Input
-                fluid
-                icon='lock'
-                iconPosition='left'
-                placeholder='Password'
-                type='password'
-                name="password"
-                onChange={this.handleInputChange}
-              />
-              <Button
-                    color='teal'
-                    fluid
-                    size='large'
-                    onClick={this.signIn}
-              >Login</Button>
-        ...
-    }
-```
-
-Explain a little bit.
-
-1. `handleInputChange` is from `AuthPiece`, it saves input value to `this.inputs` with its name.
-2. On button click, `signIn` got called, it reads input values from `this.inputs` then call `Auth.signIn`
-3. Logger is an organized way of logging. Type `LOG_LEVEL = 'DEBUG'` in console log to see debug logs.
-
-Now run app, login. From Greetings on top-right corner we can see LoginForm works. But why is LoginForm still show up after sign in success.
-
-**Hide LoginForm after Sign In**
-
-Every AuthPiece got `authState` property. So just check `authState` in `render` method. LoginForm would show up in three states: 'signIn', 'signedOut', 'signedUp'
-```
-    render() {
-        const { authState } = this.props;
-        if (!['signIn', 'signedOut', 'signedUp'].includes(authState)) { return null; }
-
-        ...
-```
-
-## 7. Home page aware of authState
+## 5. Home page aware of authState
 
 Now sign in works. How does Home page know if user signed in or not?
 
-Remember we have a `Greetings` on menu? Listen to its `onStateChange` event, then pass to Home component in router.
+We have `Greetings` now. So just listen to its `onStateChange` event, then pass to Home component in router.
 
 In `src/App.js`
 ```
@@ -280,19 +179,7 @@ Then, in `src/modules/Home.jsx`, just check `authState` property
     }
 ```
 
-## 8. Sign Up
-
-LoginForm has a 'Sign Up' link. We want to show Sign Up form when user clicks it. This is very simple, just call `this.changeState('signUp')` on click event. This is an AuthPiece method. The method notifies `Authenticator` about state change, and then `Authenticator` notify all the Auth Pieces it contains to render properly.
-
-```
-        <Message>
-            New to us? <a onClick={() => this.changeState('signUp')}>Sign Up</a>
-        </Message>
-```
-
-Now on click we'll see Sign Up form, but it is the default form. Go through the same process like LoginForm to change it.
-
-## 9. Run app
+## 6. Run app
 ```
 npm start
 ```
