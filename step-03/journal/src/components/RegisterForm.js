@@ -51,6 +51,7 @@ class RegisterForm extends AuthPiece {
                   <Form size='large'>
                     <Segment stacked>
                       <Form.Input
+                        autoFocus
                         fluid
                         icon='user'
                         iconPosition='left'

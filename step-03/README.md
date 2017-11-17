@@ -4,9 +4,10 @@ The default Auth UI is good. However it doesn't fit with our theme. Let's replac
 
 * [1. Replace Sign In](#1-replace-sign-in)
 * [2. Turn LoginForm into AuthPiece](#2-turn-loginform-into-authpiece)
-* [3. Sign Up](#3-sign-up)
-* [4. Replace all Auth components](#4-replace-all-auth-components)
-* [5. Run app](#5-run-app)
+* [3. Check Contact Verification](#3-check-contact-verication)
+* [4. Sign Up](#4-sign-up)
+* [5. Replace all Auth components](#5-replace-all-auth-components)
+* [6. Run app](#6-run-app)
 
 ## 1. Replace Sign In
 
@@ -52,7 +53,7 @@ class LoginForm extends AuthPiece {
         const { username, password } = this.inputs;
         logger.debug('username: ' + username);
         Auth.signIn(username, password)
-            .then(data => this.changeState('signedIn', data))
+            .then(user => this.changeState('signedIn', user))
             .catch(err => this.error(err));
     }
 
@@ -107,7 +108,41 @@ Every AuthPiece got `authState` property. So just check `authState` in `render` 
         ...
 ```
 
-## 3. Sign Up
+## 3. Check Contact Verification
+
+User may forget password. In order to be able to recover password, user has to have one of the contact info verified. We should prompt user about this.
+
+Update `src/components/LoginForm`:
+```
+    constructor(props) {
+        super(props);
+
+        this.checkContat = this.checkContact.bind(this);
+        this.signIn = this.signIn.bind(this);
+    }
+
+    checkContact(user) {
+        Auth.verifiedContact(user)
+            .then(data => {
+                if (!JS.isEmpty(data.verified)) {
+                    this.changeState('signedIn', user);
+                } else {
+                    user = Object.assign(user, data);
+                    this.changeState('verifyContact', user);
+                }
+            });
+    }
+
+    signIn() {
+        const { username, password } = this.inputs;
+        logger.debug('username: ' + username);
+        Auth.signIn(username, password)
+            .then(user => this.checkContact(user))
+            .catch(err => this.error(err));
+    }
+```
+
+## 4. Sign Up
 
 LoginForm has a 'Sign Up' link. On click it should show Sign Up form.
 
@@ -121,7 +156,7 @@ This can be achieved by `changeState()` method from `AuthPiece`. The method noti
 
 Now on click we'll see Sign Up form, but it is the default form. Go through the same process create a RegisterForm. Same to other UI components in auth flow.
 
-## 4. Replace all Auth components
+## 5. Replace all Auth components
 
 In process of replacing all Auth components. Here are a couple small things.
 
@@ -148,10 +183,10 @@ For example in `src/components/VerifyContactForm.js`
 In order to replace default Auth forms, we provide `hide` list to `Authenticator`. Once all reaplaced, we could simply pass a `hideDefault` property, no need to write the whole list.
 
 ```
-    <Authenticator hideDefault={true} />
+    <Authenticator hideDefault />
 ```
 
-## 5. Run app
+## 6. Run app
 ```
 npm start
 ```

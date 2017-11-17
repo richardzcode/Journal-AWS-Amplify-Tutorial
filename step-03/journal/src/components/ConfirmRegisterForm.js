@@ -15,7 +15,8 @@ class ConfirmRegisterForm extends AuthPiece {
     }
 
     confirm() {
-        const { username, code } = this.inputs;
+        const username = this.usernameFromAuthData() || this.inputs.username;
+        const { code } = this.inputs;
         logger.debug('username: ' + username);
         Auth.confirmSignUp(username, code)
             .then(data => this.changeState('signIn', data))
@@ -33,6 +34,8 @@ class ConfirmRegisterForm extends AuthPiece {
     render() {
         const { authState } = this.props;
         if ('confirmSignUp' !== authState) { return null; }
+
+        const username = this.usernameFromAuthData();
 
         return (
             <div className='login-form'>
@@ -59,14 +62,23 @@ class ConfirmRegisterForm extends AuthPiece {
                   </Header>
                   <Form size='large'>
                     <Segment stacked>
-                      <Form.Input
-                        fluid
-                        icon='user'
-                        iconPosition='left'
-                        placeholder='Username'
-                        name="username"
-                        onChange={this.handleInputChange}
-                      />
+                      {username? <Form.Input
+                                    fluid
+                                    icon='user'
+                                    iconPosition='left'
+                                    placeholder='Username'
+                                    name="username"
+                                    onChange={this.handleInputChange}
+                                  />
+                                : <Form.Input
+                                    fluid
+                                    icon='user'
+                                    iconPosition='left'
+                                    placeholder='Username'
+                                    value={username}
+                                    readOnly
+                                  />
+                      }
                       <Form.Input
                         fluid
                         icon='puzzle'

@@ -32,6 +32,7 @@ class ForgotPasswordForm extends AuthPiece {
             .then(data => {
                 logger.debug(data);
                 this.changeState('signIn');
+                this.setState({ delivery: null });
             })
             .catch(err => this.error(err));
     }
@@ -44,6 +45,7 @@ class ForgotPasswordForm extends AuthPiece {
                 icon='user'
                 iconPosition='left'
                 placeholder='Username'
+                key="username"
                 name="username"
                 onChange={this.handleInputChange}
               />
@@ -66,6 +68,7 @@ class ForgotPasswordForm extends AuthPiece {
                 icon='puzzle'
                 iconPosition='left'
                 placeholder='Code'
+                key="code"
                 name="code"
                 onChange={this.handleInputChange}
               />
@@ -75,6 +78,7 @@ class ForgotPasswordForm extends AuthPiece {
                 iconPosition='left'
                 placeholder='New Password'
                 type='password'
+                key="password"
                 name="password"
                 onChange={this.handleInputChange}
               />

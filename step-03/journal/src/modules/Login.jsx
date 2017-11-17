@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Authenticator, Greetings, SignIn, SignUp } from 'aws-amplify-react';
+import { withAuthenticator, Authenticator, Greetings, SignIn, SignUp } from 'aws-amplify-react';
 
 import {
     LoginForm,
@@ -13,7 +13,7 @@ import {
 export default class Login extends Component {
     render() {
         return (
-            <Authenticator hide={[Greetings, SignUp]}>
+            <Authenticator hideDefault>
                 <LoginForm />
                 <RegisterForm />
                 <ConfirmRegisterForm />

@@ -1,13 +1,52 @@
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
+
+import { Auth } from 'aws-amplify';
+
+const UserInfo = (props) => {
+    return (
+        <div>{JSON.stringify(props.user)}</div>
+    )
+}
 
 export default class Home extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+    }
+
+    componentDidMount() {
+        Auth.currentUserInfo()
+            .then(user => this.setState({ user: user }))
+            .catch(err => console.log(err));
+    }
+
+    memberView() {
+        const { user } = this.state;
+        return (
+            <Container>
+                Member Home
+                <UserInfo user={user} />
+            </Container>
+        )
+    }
+
+    guestView() {
+        return (
+            <Container>Guest Home</Container>
+        )
+    }
+
+    userInfo() {
+    }
+
     render() {
         const { authState, authData } = this.props;
         return (
             <div id="home-module">
-                <Header as="h1">Home</Header>
-                <div>{authState}</div>
+                { authState === 'signedIn'? this.memberView() : this.guestView() }
+                <UserInfo />
             </div>
         );
     }

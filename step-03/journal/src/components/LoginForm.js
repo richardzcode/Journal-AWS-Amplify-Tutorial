@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 
-import { Auth, Logger } from 'aws-amplify';
+import { Auth, Logger, JS } from 'aws-amplify';
 import { AuthPiece } from 'aws-amplify-react';
 
 const logger = new Logger('LoginForm');
@@ -10,14 +10,27 @@ class LoginForm extends AuthPiece {
     constructor(props) {
         super(props);
 
+        this.checkContat = this.checkContact.bind(this);
         this.signIn = this.signIn.bind(this);
+    }
+
+    checkContact(user) {
+        Auth.verifiedContact(user)
+            .then(data => {
+                if (!JS.isEmpty(data.verified)) {
+                    this.changeState('signedIn', user);
+                } else {
+                    user = Object.assign(user, data);
+                    this.changeState('verifyContact', user);
+                }
+            });
     }
 
     signIn() {
         const { username, password } = this.inputs;
         logger.debug('username: ' + username);
         Auth.signIn(username, password)
-            .then(data => this.changeState('signedIn', data))
+            .then(user => this.checkContact(user))
             .catch(err => this.error(err));
     }
 
@@ -51,6 +64,7 @@ class LoginForm extends AuthPiece {
                   <Form size='large'>
                     <Segment stacked>
                       <Form.Input
+                        autoFocus
                         fluid
                         icon='user'
                         iconPosition='left'

@@ -13,7 +13,7 @@ class VerifyContactForm extends AuthPiece {
         this.verify = this.verify.bind(this);
         this.submit = this.submit.bind(this);
 
-        this.state = {};
+        this.state = { verifyAttr: null };
     }
 
     verify() {
@@ -40,6 +40,7 @@ class VerifyContactForm extends AuthPiece {
             .then(data => {
                 logger.debug(data);
                 this.changeState('signedIn', this.props.authData);
+                this.state = { verifyAttr: null };
             })
             .catch(err => this.error(err));
     }
@@ -50,11 +51,13 @@ class VerifyContactForm extends AuthPiece {
               <Container textAlign="left">
                 <Form.Radio
                     label="Email"
+                    key="email"
                     name="email"
                     onChange={(evt, semantic_data) => this.handleInputChange({ target: semantic_data })}
                  />
                   <Form.Radio
                     label='Phone Number'
+                    key="phone_number"
                     name="phone_number"
                     onChange={(evt, semantic_data) => this.handleInputChange({ target: semantic_data })}
                   />
@@ -78,6 +81,7 @@ class VerifyContactForm extends AuthPiece {
                 icon='puzzle'
                 iconPosition='left'
                 placeholder='Code'
+                key="code"
                 name="code"
                 onChange={this.handleInputChange}
               />

@@ -128,6 +128,8 @@ Change the greetings
     />
 ```
 
+<img src="welcome.png" width="400px" />
+
 ## 5. Home page aware of authState
 
 Now sign in works. How does Home page know if user signed in or not?
