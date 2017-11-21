@@ -6,3 +6,5 @@ Step by step tutorial to build a personal journal web app with aws-amplify
 * [Step 03 - Authentication UI](step-03)
 * [Step 04 - Everyday Journal](step-04)
 * [Step 05 - List of Journals](step-05)
+
+Go to `journal` sub-folder of each step to check full source code, and run app.

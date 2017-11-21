@@ -85,7 +85,7 @@ export default class Login extends Component {
 
 **Greetings on Menu**
 
-What we actually want. Is the greetings on top-right corner. Let's edit `src/App.js` to add menu item with Greetings.
+What we actually want is greetings on the top-right corner. Let's edit `src/App.js` to add menu item with Greetings.
 
 First import Greetings
 ```
@@ -132,7 +132,7 @@ Change the greetings
 
 ## 5. Home Page Aware of authState
 
-Now sign in works. How does Home page know if user signed in or not?
+Now sign in works. How does Home page know if an user is signed in or not?
 
 We have `Greetings` now. So just listen to its `onStateChange` event, then pass to Home component in router.
 
@@ -186,3 +186,5 @@ Then, in `src/modules/Home.jsx`, just check `authState` property
 ```
 npm start
 ```
+
+[Step 03 - Authentication UI](step-03)
