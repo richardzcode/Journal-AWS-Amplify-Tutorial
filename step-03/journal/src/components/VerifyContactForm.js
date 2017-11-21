@@ -17,7 +17,6 @@ class VerifyContactForm extends AuthPiece {
     }
 
     verify() {
-        const user = this.props.authData;
         const { email, phone_number } = this.inputs;
         if (!email && !phone_number) {
             this.error('Neither Email nor Phone Number selected');

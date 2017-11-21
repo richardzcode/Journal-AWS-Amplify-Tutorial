@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { withAuthenticator, Authenticator, Greetings, SignIn, SignUp } from 'aws-amplify-react';
+import { Authenticator } from 'aws-amplify-react';
 
 import {
     LoginForm,
