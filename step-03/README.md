@@ -35,7 +35,7 @@ Now, looks better
 
 The LoginForm actually doesn't do anything at this moment. We need to hook it up with Amplify Auth.
 
-First we turn LoginFrom from const to component. `AuthPiece` is the base class in Amplify Auth components which has some built-in functions to help integrate with Auth. Let's extend from it.
+First we turn LoginFrom from const to component. `AuthPiece` is the base class which has some built-in functions to help integrate with Auth. Let's extend from it.
 ```
 import { Auth, Logger } from 'aws-amplify';
 import { AuthPiece } from 'aws-amplify-react';
@@ -162,7 +162,7 @@ In process of replacing all Auth components. Here are a couple small things.
 
 **Semantic UI radio button**
 
-The radio button from Semantic UI fires `onChange` event on label as target. Which will cause an issue in collecting state. The actual radio button state is passed as the second button. We need to translate it before calling `this.handleInputChange`
+The radio button from Semantic UI fires `onChange` event on label as target. Which will cause an issue in collecting state. The actual radio button state is passed as the second parameter. We need to translate it before calling `this.handleInputChange`
 
 For example in `src/components/VerifyContactForm.js`
 ```
