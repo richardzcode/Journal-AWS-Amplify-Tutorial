@@ -7,7 +7,7 @@ The default Auth UI is good. However it doesn't fit with our theme. Let's replac
 * [3. Check Contact Verification](#3-check-contact-verication)
 * [4. Sign Up](#4-sign-up)
 * [5. Replace all Auth components](#5-replace-all-auth-components)
-* [6. Run app](#6-run-app)
+l [6. Run App](#6-run-app)
 
 ## 1. Replace Sign In
 
@@ -186,7 +186,8 @@ In order to replace default Auth forms, we provide `hide` list to `Authenticator
     <Authenticator hideDefault />
 ```
 
-## 6. Run app
+## 6. Run App
+
 ```
 npm start
 ```

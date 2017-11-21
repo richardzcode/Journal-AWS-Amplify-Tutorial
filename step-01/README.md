@@ -5,7 +5,7 @@
 * [3. Add Semantic UI React](#3-add-semantic-ui-react)
 * [4. Menu and Routing](#4-menu-and-routing)
 * [5. Create Home and Login Page](#5-create-home-and-login-page)
-* [6. Run app](#6-run-app)
+* [6. Run App](#6-run-app)
 
 ## 1. Create React App
 ```
@@ -141,7 +141,8 @@ export default class Login extends Component {
 }
 ```
 
-## 6. Run app
+## 6. Run App
+
 ```
 npm start
 ```

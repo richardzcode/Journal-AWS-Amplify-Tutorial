@@ -6,8 +6,8 @@ AWS Amplify solved the authentication for developers. Let's use it.
 * [2. Configure AWS Amplify](#2-configure-aws-amplify)
 * [3. Add Authenticator](#3-add-authenticator)
 * [4. Greetings](#4-greetings)
-* [5. Home page aware of authState](#5-home-page-aware-of-authstate)
-* [6. Run app](#6-run-app)
+* [5. Home Page Aware of authState](#5-home-page-aware-of-authstate)
+* [6. Run App](#6-run-app)
 
 ## 1. Prepare
 
@@ -130,7 +130,7 @@ Change the greetings
 
 <img src="welcome.png" width="400px" />
 
-## 5. Home page aware of authState
+## 5. Home Page Aware of authState
 
 Now sign in works. How does Home page know if user signed in or not?
 
@@ -181,7 +181,8 @@ Then, in `src/modules/Home.jsx`, just check `authState` property
     }
 ```
 
-## 6. Run app
+## 6. Run App
+
 ```
 npm start
 ```
