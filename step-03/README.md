@@ -18,6 +18,7 @@ Save the form to `src/components/LoginForm.js`.
 Then modify `src/modules/Login.jsx`, hide the default SignIn, add our LoginForm
 ```
 import { Authenticator, Greetings, SignIn } from 'aws-amplify-react';
+import { LoginForm } from '../components';
 
     render() {
         return (
