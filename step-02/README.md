@@ -187,4 +187,4 @@ Then, in `src/modules/Home.jsx`, just check `authState` property
 npm start
 ```
 
-[Step 03 - Authentication UI](step-03)
+[Step 03 - Authentication UI](../step-03)

@@ -79,3 +79,5 @@ npm start
 ```
 
 <img src="journal_history.png" width="360px" />
+
+[Step 06 - Go Live](../step-06)

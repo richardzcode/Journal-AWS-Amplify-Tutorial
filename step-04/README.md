@@ -135,4 +135,4 @@ npm start
 
 <img src="daily_journal.png" width="360px" />
 
-[Step 05 - List of Journals](step-05)
+[Step 05 - List of Journals](../step-05)

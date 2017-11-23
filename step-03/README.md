@@ -192,4 +192,4 @@ In order to replace default Auth forms, we provide `hide` list to `Authenticator
 npm start
 ```
 
-[Step 04 - Everyday Journal](step-04)
+[Step 04 - Everyday Journal](../step-04)
