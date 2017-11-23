@@ -31,4 +31,4 @@ Go to AWS Console -> Mobile Hub. Click `Resources` on the top-right corner. Look
 
 Upload files under `build/` to this bucket. Then open in browser. We are live!
 
-![Live](live.png)
+<img src="live.png" width="360px" />

@@ -12,4 +12,4 @@ Step by step tutorial to build a personal journal web app with aws-amplify
 
 Go to `journal` sub-folder of each step to check full source code, and run app.
 
-![Live](step-06/live.png)
+<img src="step-06/live.png" width="360px" />
