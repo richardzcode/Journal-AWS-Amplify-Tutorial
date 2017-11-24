@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Link, Switch } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { HashRouter, Route, Link, Switch } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 import Amplify from 'aws-amplify';
@@ -36,27 +35,6 @@ class App extends Component {
         this.state = { active_menu: 'home' }
     }
 
-    setActiveMenu(pathname) {
-        const path_to_menu = [
-            ['/', 'home'],
-            ['/login', 'login']
-        ];
-        const active = path_to_menu.filter(entry => { return entry[0] === pathname; })
-                .reduce((result, entry) => { return entry[1]; }, '');;
-        this.setState({
-            active_menu: active || 'home'
-        });
-    };
-
-    componentWillMount() {
-        this.history = createBrowserHistory();
-        this.setActiveMenu(this.history.location.pathname);
-        const that = this;
-        this.history.listen((location, action) => {
-            that.setActiveMenu(location.pathname);
-        });
-    }
-
     handleStateChange(authState, authData) {
         this.setState({
             authState: authState,
@@ -67,15 +45,23 @@ class App extends Component {
   render() {
     const { authState, authData } = this.state;
     return (
-            <Router history={this.history}>
+            <HashRouter>
             <div>
                 <Menu>
-                    <Menu.Item active={this.state.active_menu === 'home'}>
-                        <Link to="/">Home</Link>
-                    </Menu.Item>
-                    <Menu.Item active={this.state.active_menu === 'login'}>
-                        <Link to="/login">Login</Link>
-                    </Menu.Item>
+                    <Switch>
+                        <Route exact path="/">
+                            <Menu.Menu>
+                                <Menu.Item active><Link to="/">Home</Link></Menu.Item>
+                                <Menu.Item><Link to="/login">Login</Link></Menu.Item>
+                            </Menu.Menu>
+                        </Route>
+                        <Route exact path="/login">
+                            <Menu.Menu>
+                                <Menu.Item><Link to="/">Home</Link></Menu.Item>
+                                <Menu.Item active><Link to="/login">Login</Link></Menu.Item>
+                            </Menu.Menu>
+                        </Route>
+                    </Switch>
                     <Menu.Menu position="right">
                         <Menu.Item>
                             <Greetings
@@ -94,7 +80,7 @@ class App extends Component {
                     <Route exact path="/login" name="login" component={Login}/>
                 </Switch>
             </div>
-            </Router>
+            </HashRouter>
     );
   }
 }

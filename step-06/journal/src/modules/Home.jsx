@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { Container, Segment, Header, Form, Menu, Dropdown, Loader } from 'semantic-ui-react';
+import {
+    Container,
+    Segment,
+    Header,
+    Form,
+    Menu,
+    Dropdown,
+    Loader,
+    Icon
+} from 'semantic-ui-react';
 
 import { Auth, Storage, Logger } from 'aws-amplify';
 import { S3Album, S3Text } from 'aws-amplify-react';
@@ -19,11 +28,15 @@ export default class Home extends Component {
         this.handleDateChange = this.handleDateChange.bind(this);
         this.save = this.save.bind(this);
         this.extractDates = this.extractDates.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
+        this.handleTrash = this.handleTrash.bind(this);
+        this.translateItem = this.translateItem.bind(this);
 
         this.state = {
             ts: new Date().getTime(),
             date: today(),
-            dates: []
+            dates: [],
+            selected: []
         };
     }
 
@@ -57,9 +70,12 @@ export default class Home extends Component {
     }
 
     save() {
-        const { path, writingKey, writingContent } = this.state;
-        const textKey = writingKey? path + writingKey.replace(/\s+/g, '_') : null;
-        const textContent = writingContent;
+        const { path, writingTitle, writingContent } = this.state;
+        const textKey = writingTitle? path + writingTitle.replace(/\s+/g, '_') : new Date().getTime();
+        const textContent = JSON.stringify({
+            title: writingTitle,
+            content: writingContent
+        })
         this.setState({ textKey: textKey, textContent: textContent });
     }
 
@@ -73,11 +89,46 @@ export default class Home extends Component {
         this.setState({ dates: unique_dates });
     }
 
+    handleSelect(item, selected_items) {
+        this.setState({ selected: selected_items });
+    }
+
+    handleTrash() {
+        const { selected } = this.state;
+        if (!selected || selected.length === 0) { return; }
+
+        const that = this;
+        Promise.all(selected.map(item => Storage.remove(item.key)))
+            .then(data => {
+                logger.debug(data);
+                that.setState({ ts: new Date().getTime() });
+            })
+            .catch(err => {
+                logger.error(err);
+                that.setState({ ts: new Date().getTime() });
+            });
+    }
+
+    translateItem(data) {
+        if ((data.type === 'text') && data.textKey.endsWith('.json')) {
+            if (!data.content) { return data.content; }
+
+            const content = JSON.parse(data.content);
+            return (
+                <div>
+                    <h3>{content.title}</h3>
+                    <div>{content.content}</div>
+                </div>
+            )
+        }
+        return data.content;
+    }
+
     memberView() {
-        const { user, path, textKey, textContent, ts, date, dates } = this.state;
+        const { user, path, textKey, textContent, ts, date, dates, select, selected } = this.state;
         if (!user) { return null; }
 
-        const key = textKey? textKey + '.txt' : null;
+        const key = textKey? textKey + '.json' : null;
 
         const history = dates.map(date => {
             return {
@@ -97,6 +148,20 @@ export default class Home extends Component {
                     </Menu.Item>
                     <Menu.Menu position="right">
                         <Menu.Item>
+                            <Icon
+                                name="hand outline up"
+                                size="large"
+                                color={select? 'black' : 'grey'}
+                                onClick={() => this.setState({ select: !this.state.select })}
+                            />
+                            <Icon
+                                name="trash outline"
+                                size="large"
+                                color={selected && selected.length > 0? 'black' : 'grey'}
+                                onClick={this.handleTrash}
+                            />
+                        </Menu.Item>
+                        <Menu.Item>
                             <Dropdown
                                 position="right"
                                 placeholder="History"
@@ -112,6 +177,9 @@ export default class Home extends Component {
                         path={path}
                         ts={ts}
                         picker
+                        select={select}
+                        onSelect={this.handleSelect}
+                        translateItem={this.translateItem}
                         onPick={() => this.setState({ loading: true })}
                         onLoad={() => this.setState({ loading: false })}
                         onError={() => this.setState({ loading: false })}
@@ -120,8 +188,8 @@ export default class Home extends Component {
                 <Segment attached>
                     <Form>
                         <Form.Input
-                            name="writingKey"
-                            placeholder="Key to identify the writing"
+                            name="writingTitle"
+                            placeholder="Title"
                             onChange={this.handleChange}
                         />
                         <Form.TextArea
@@ -133,7 +201,7 @@ export default class Home extends Component {
                     </Form>
                     <S3Text
                         hidden
-                        contentType="text/plain"
+                        contentType="application/json"
                         textKey={key}
                         body={textContent}
                         onLoad={() => this.setState({ ts: new Date().getTime() })}

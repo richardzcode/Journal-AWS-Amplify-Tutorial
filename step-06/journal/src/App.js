@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Link, Switch } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { HashRouter, Route, Link, Switch } from 'react-router-dom';
 import { Segment, Sidebar, Menu, Icon, Message } from 'semantic-ui-react';
 
 import Amplify from 'aws-amplify';
@@ -48,15 +47,6 @@ class App extends Component {
         });
     };
 
-    componentWillMount() {
-        this.history = createBrowserHistory();
-        this.setActiveMenu(this.history.location.pathname);
-        const that = this;
-        this.history.listen((location, action) => {
-            that.setActiveMenu(location.pathname);
-        });
-    }
-
     handleStateChange(authState, authData) {
         this.setState({
             authState: authState,
@@ -67,15 +57,23 @@ class App extends Component {
   render() {
     const { authState, authData, sidebar_visible } = this.state;
     return (
-            <Router history={this.history}>
+            <HashRouter>
             <div>
                 <Menu>
-                    <Menu.Item active={this.state.active_menu === 'home'}>
-                        <Link to="/">Home</Link>
-                    </Menu.Item>
-                    <Menu.Item active={this.state.active_menu === 'login'}>
-                        <Link to="/login">Login</Link>
-                    </Menu.Item>
+                    <Switch>
+                        <Route exact path="/">
+                            <Menu.Menu>
+                                <Menu.Item active><Link to="/">Home</Link></Menu.Item>
+                                <Menu.Item><Link to="/login">Login</Link></Menu.Item>
+                            </Menu.Menu>
+                        </Route>
+                        <Route exact path="/login">
+                            <Menu.Menu>
+                                <Menu.Item><Link to="/">Home</Link></Menu.Item>
+                                <Menu.Item active><Link to="/login">Login</Link></Menu.Item>
+                            </Menu.Menu>
+                        </Route>
+                    </Switch>
                     <Menu.Menu position="right">
                         <Menu.Item>
                             <Greetings
@@ -116,15 +114,17 @@ class App extends Component {
                     </Sidebar>
                     <Sidebar.Pusher>
                         <Switch>
-                            <Route exact path="/" name="home" render={(props) => (
-                                <Home {...props} authState={authState} authData={authData} />
-                            )}/>
+                            <Route exact path="/" name="home" render={(props) => {
+                                return (
+                                    <Home {...props} authState={authState} authData={authData} />
+                                )
+                            }}/>
                             <Route exact path="/login" name="login" component={Login}/>
                         </Switch>
                     </Sidebar.Pusher>
                 </Sidebar.Pushable>
             </div>
-            </Router>
+            </HashRouter>
     );
   }
 }

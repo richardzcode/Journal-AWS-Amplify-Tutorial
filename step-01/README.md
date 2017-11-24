@@ -41,67 +41,41 @@ Let's start with a Home page and a Login Page.
 
 Open `src/App.js`, import
 ```
-import { Router, Route, Link, Switch } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { HashRouter, Route, Link, Switch } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 import Home from './modules/Home';
 import Login from './modules/Login';
 ```
 
-Initial state
-```
-    constructor(props) {
-        super(props);
-
-        this.state = { active_menu: 'home' }
-    }
-```
-
-Listen to route change in order to set active menu correctly
-```
-    setActiveMenu(pathname) {
-        const path_to_menu = [
-            ['/', 'home'],
-            ['/login', 'login']
-        ];
-        const active = path_to_menu.filter(entry => { return entry[0] === pathname; })
-                .reduce((result, entry) => { return entry[1]; }, '');;
-        this.setState({
-            active_menu: active || 'home'
-        });
-    };
-
-    componentWillMount() {
-        this.history = createBrowserHistory();
-        this.setActiveMenu(this.history.location.pathname);
-        const that = this;
-        this.history.listen((location, action) => {
-            that.setActiveMenu(location.pathname);
-        });
-    }
-```
-
 Render method:
 ```
     render() {
         return (
-            <Router history={this.history}>
+            <HashRouter>
             <div>
                 <Menu>
-                    <Menu.Item active={this.state.active_menu === 'home'}>
-                        <Link to="/">Home</Link>
-                    </Menu.Item>
-                    <Menu.Item active={this.state.active_menu === 'login'}>
-                        <Link to="/login">Login</Link>
-                    </Menu.Item>
+                    <Switch>
+                        <Route exact path="/">
+                            <Menu.Menu>
+                                <Menu.Item active><Link to="/">Home</Link></Menu.Item>
+                                <Menu.Item><Link to="/login">Login</Link></Menu.Item>
+                            </Menu.Menu>
+                        </Route>
+                        <Route exact path="/login">
+                            <Menu.Menu>
+                                <Menu.Item><Link to="/">Home</Link></Menu.Item>
+                                <Menu.Item active><Link to="/login">Login</Link></Menu.Item>
+                            </Menu.Menu>
+                        </Route>
+                    </Switch>
                 </Menu>
                 <Switch>
                     <Route exact path="/" name="home" component={Home}/>
                     <Route exact path="/login" name="login" component={Login}/>
                 </Switch>
             </div>
-            </Router>
+            </HashRouter>
         );
     }
 ```
