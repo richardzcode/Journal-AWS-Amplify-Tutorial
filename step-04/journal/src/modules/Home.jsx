@@ -39,7 +39,7 @@ export default class Home extends Component {
     }
 
     translateItem(data) {
-        if ((data.type === 'text') && data.textKey.endsWith('.json')) {
+        if ((data.type === 'text') && data.key.endsWith('.json')) {
             if (!data.content) { return data.content; }
 
             const content = JSON.parse(data.content);
