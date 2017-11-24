@@ -19,6 +19,7 @@ export default class Home extends Component {
         this.handleDateChange = this.handleDateChange.bind(this);
         this.save = this.save.bind(this);
         this.extractDates = this.extractDates.bind(this);
+        this.translateItem = this.translateItem.bind(this);
 
         this.state = {
             ts: new Date().getTime(),
@@ -57,9 +58,12 @@ export default class Home extends Component {
     }
 
     save() {
-        const { path, writingKey, writingContent } = this.state;
-        const textKey = writingKey? path + writingKey.replace(/\s+/g, '_') : null;
-        const textContent = writingContent;
+        const { path, writingTitle, writingContent } = this.state;
+        const textKey = writingTitle? path + writingTitle.replace(/\s+/g, '_') : null;
+        const textContent = JSON.stringify({
+            title: writingTitle,
+            content: writingContent
+        });
         this.setState({ textKey: textKey, textContent: textContent });
     }
 
@@ -73,11 +77,26 @@ export default class Home extends Component {
         this.setState({ dates: unique_dates });
     }
 
+    translateItem(data) {
+        if ((data.type === 'text') && data.textKey.endsWith('.json')) {
+            if (!data.content) { return data.content; }
+
+            const content = JSON.parse(data.content);
+            return (
+                <div>
+                    <h3>{content.title}</h3>
+                    <div>{content.content}</div>
+                </div>
+            )
+        }
+        return data.content;
+    }
+
     memberView() {
         const { user, path, textKey, textContent, ts, date, dates } = this.state;
         if (!user) { return null; }
 
-        const key = textKey? textKey + '.txt' : null;
+        const key = textKey? textKey + '.json' : null;
 
         const history = dates.map(date => {
             return {
@@ -107,13 +126,18 @@ export default class Home extends Component {
                     </Menu.Menu>
                 </Menu>
                 <Segment attached>
-                    <S3Album path={path} ts={ts} picker />
+                    <S3Album
+                        path={path}
+                        ts={ts}
+                        picker
+                        translateItem={this.translateItem}
+                    />
                 </Segment>
                 <Segment attached>
                     <Form>
                         <Form.Input
-                            name="writingKey"
-                            placeholder="Key to identify the writing"
+                            name="writingTitle"
+                            placeholder="Title"
                             onChange={this.handleChange}
                         />
                         <Form.TextArea
@@ -125,7 +149,7 @@ export default class Home extends Component {
                     </Form>
                     <S3Text
                         hidden
-                        contentType="text/plain"
+                        contentType="application/json"
                         textKey={key}
                         body={textContent}
                         onLoad={() => this.setState({ ts: new Date().getTime() })}
