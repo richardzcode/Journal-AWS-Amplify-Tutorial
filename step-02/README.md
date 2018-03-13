@@ -11,25 +11,26 @@ AWS Amplify solved the authentication for developers. Let's use it.
 
 ## 1. Prepare
 
+### Library
+
 Install package, core library and react specific.
 ```
 npm install --save aws-amplify
 npm install --save aws-amplify-react
 ```
 
-**Create a AWS Mobile Hub project**
+### Service
 
-Go to [Mobile Hub Import](../mobile-hub-import) to quickly setup the backend on AWS.
+Create a AWS Mobile Hub project with [awsmobile-CLI](https://github.com/aws/awsmobile-cli)
 
-**Download config file**
+```
+npm install -g awsmobile-cli
 
-Once project created, open "Hosting and Streaming"
-<img src="host_and_streaming.png" width="720px" />
-
-At the bottom of page, "Download aws-exports.js file".
-<img src="download_aws_exports.png" width="720px" />
-
-Download and save to `src` folder
+awsmobile init
+awsmobile user-signin enable
+awsmobile user-files enable
+awsmobile push
+```
 
 ## 2. Configure AWS Amplify
 
