@@ -15,3 +15,5 @@ Go to `journal` sub-folder of each step to check full source code, and run app.
 <img src="step-06/live.png" width="360px" />
 
 [Live Demo](http://journal-hosting-mobilehub-1908112296.s3-website-us-east-1.amazonaws.com/)
+
+**Disclaimer:** This is a personal experiment. Not an official sample.
