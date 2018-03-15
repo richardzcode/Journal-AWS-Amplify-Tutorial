@@ -4,10 +4,11 @@ The default Auth UI is good. However it doesn't fit with our theme. Let's replac
 
 * [1. Replace Sign In](#1-replace-sign-in)
 * [2. Turn LoginForm into AuthPiece](#2-turn-loginform-into-authpiece)
-* [3. Check Contact Verification](#3-check-contact-verication)
-* [4. Sign Up](#4-sign-up)
-* [5. Replace all Auth components](#5-replace-all-auth-components)
-l [6. Run App](#6-run-app)
+* [3. Federated Sign In](#3-federated-sign-in)
+* [4. Check Contact Verification](#4-check-contact-verication)
+* [5. Sign Up](#5-sign-up)
+* [6. Replace all Auth components](#6-replace-all-auth-components)
+* [7. Run App](#7-run-app)
 
 ## 1. Replace Sign In
 
@@ -109,7 +110,49 @@ Every AuthPiece got `authState` property. So just check `authState` in `render` 
         ...
 ```
 
-## 3. Check Contact Verification
+## 3. Federated Sign In
+
+`withFederated` HOC turns buttons into Federated sign in button.
+
+* Build UI
+  - style your own button
+  - trigger `props.facebookSignIn | props.googleSignIn | props.amazonSignIn` at the right time
+* Transform UI
+  - withFederated(...)
+* Render UI
+  - pass in `federated` property with app ids
+  - handle `onStateChange` to notify sign in event
+
+```
+import { AuthPiece, withFederated } from 'aws-amplify-react';
+
+const FederatedButtons = (props) => (
+    <div>
+        <Button
+            color='blue'
+            fluid
+            size='large'
+            onClick={props.facebookSignIn}
+        >Facebook</Button>
+    </div>
+);
+
+const Federated = withFederated(FederatedButtons);
+
+const federated_data = {
+    google_client_id: '',
+    facebook_app_id: '__replace_with_your_facebook_app_id__',
+    amazon_client_id: ''
+};
+
+...
+
+// in login form render method, trigger AuthPiece.handleAuthStateChange when state changes, i.e. signed in
+    <Federated federated={federated_data} onStateChange={this.handleAuthStateChange} />
+
+```
+
+## 4. Check Contact Verification
 
 User may forget password. In order to be able to recover password, user has to have one of the contact info verified. We should prompt user about this.
 
@@ -143,7 +186,7 @@ Update `src/components/LoginForm`:
     }
 ```
 
-## 4. Sign Up
+## 5. Sign Up
 
 LoginForm has a 'Sign Up' link. On click it should show Sign Up form.
 
@@ -157,7 +200,7 @@ This can be achieved by `changeState()` method from `AuthPiece`. The method noti
 
 Now on click we'll see Sign Up form, but it is the default form. Go through the same process create a RegisterForm. Same to other UI components in auth flow.
 
-## 5. Replace all Auth components
+## 6. Replace all Auth components
 
 In process of replacing all Auth components. Here are a couple small things.
 
@@ -187,7 +230,7 @@ In order to replace default Auth forms, we provide `hide` list to `Authenticator
     <Authenticator hideDefault />
 ```
 
-## 6. Run App
+## 7. Run App
 
 ```
 npm start

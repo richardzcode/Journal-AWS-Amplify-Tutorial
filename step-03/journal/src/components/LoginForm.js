@@ -1,10 +1,29 @@
 import React from 'react'
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Message, Segment, Divider } from 'semantic-ui-react'
 
 import { Auth, Logger, JS } from 'aws-amplify';
-import { AuthPiece } from 'aws-amplify-react';
+import { AuthPiece, withFederated } from 'aws-amplify-react';
 
 const logger = new Logger('LoginForm');
+
+const FederatedButtons = (props) => (
+    <div>
+        <Button
+            color='blue'
+            fluid
+            size='large'
+            onClick={props.facebookSignIn}
+        >Facebook</Button>
+    </div>
+);
+
+const Federated = withFederated(FederatedButtons);
+
+const federated = {
+    google_client_id: '',
+    facebook_app_id: '__replace_with_your_facebook_app_id__',
+    amazon_client_id: ''
+};
 
 class LoginForm extends AuthPiece {
     constructor(props) {
@@ -88,6 +107,8 @@ class LoginForm extends AuthPiece {
                             size='large'
                             onClick={this.signIn}
                       >Login</Button>
+                      <Divider/>
+                      <Federated federated={federated} onStateChange={this.handleAuthStateChange} />
                     </Segment>
                   </Form>
                   <Message>
