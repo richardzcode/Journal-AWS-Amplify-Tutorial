@@ -147,7 +147,8 @@ const federated_data = {
 
 ...
 
-// in login form render method, trigger AuthPiece.handleAuthStateChange when state changes, i.e. signed in
+    // in login form render method,
+    // trigger AuthPiece.handleAuthStateChange when state changes, i.e. signed in
     <Federated federated={federated_data} onStateChange={this.handleAuthStateChange} />
 
 ```
