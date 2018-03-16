@@ -18,8 +18,6 @@ Install package, core library and react specific.
 ```
 npm install --save aws-amplify
 npm install --save aws-amplify-react
-npm install --save crypto-browserify
-npm install --save path-to-regexp
 ```
 
 ### Service
