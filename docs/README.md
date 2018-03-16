@@ -3,12 +3,12 @@
 # Journal
 Step by step tutorial to build a personal journal web app with ReactJS + AWS
 
-* [Step 01 - Create a Basic React App](step-01)
-* [Step 02 - Authentication](step-02)
-* [Step 03 - Authentication UI](step-03)
-* [Step 04 - Everyday Journal](step-04)
-* [Step 05 - List of Journals](step-05)
-* [Step 06 - Go Live](step-06)
+* [Step 01 - Create a Basic React App](docs/step-01-cra.html)
+* [Step 02 - Authentication](docs/step-02-prepare.html)
+* [Step 03 - Authentication UI](docs/step-03-replace-sign-in.html)
+* [Step 04 - Everyday Journal](docs/step-04-user-info.html)
+* [Step 05 - List of Journals](docs/step-05-get-list.html)
+* [Step 06 - Go Live](docs/step-06-touch-ups.html)
 
 Go to `journal` sub-folder of each step to check full source code, and run app.
 
