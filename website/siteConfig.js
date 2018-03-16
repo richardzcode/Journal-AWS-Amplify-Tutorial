@@ -1,13 +1,13 @@
 const currentYear = new Date().getFullYear();
 
 const siteConfig = {
-  projectName: 'Journal-Tutorial',
+  projectName: 'Journal-AWS-Amplify-Tutorial',
   title: 'Journal Tutorial',
   tagline: 'Step by step tutorial to build a personal journal web app with ReactJS + AWS',
   copyright: 'Copyright © ' + currentYear + ' Richard Zhang',
 
   rootUrl: 'https://richardzcode.github.io',
-  baseUrl: '/Journal-Tutorial',
+  baseUrl: '/Journal-AWS-Amplify-Tutorial',
 
   icon: 'img/dochameleon.png',
   favicon: 'img/favicon.png',
