@@ -1,0 +1,47 @@
+{
+  "Steps": {
+    "Step 01 - Create a Basic React App": [
+      "step-01-cra",
+      "step-01-react-router",
+      "step-01-semantic-ui-react",
+      "step-01-menu-n-routing",
+      "step-01-home-n-login",
+      "step-01-run-app"
+    ],
+    "Step 02 - Authentication": [
+      "step-02-prepare",
+      "step-02-configure",
+      "step-02-authenticator",
+      "step-02-greetings",
+      "step-02-aware-of-authstate",
+      "step-02-run-app"
+    ],
+    "Step 03 - Authentication UI": [
+      "step-03-replace-sign-in",
+      "step-03-login-form",
+      "step-03-federated",
+      "step-03-check-contact",
+      "step-03-sign-up",
+      "step-03-replace-all",
+      "step-03-run-app"
+    ],
+    "Step 04 - Everyday Journal": [
+      "step-04-user-info",
+      "step-04-daily-album",
+      "step-04-write-text",
+      "step-04-refresh-album",
+      "step-04-run-app"
+    ],
+    "Step 05 - List of Journals": [
+      "step-05-get-list",
+      "step-05-display-dates",
+      "step-05-switch-date",
+      "step-05-run-app"
+    ],
+    "Step 06 - Go Live": [
+      "step-06-touch-ups",
+      "step-06-build",
+      "step-06-publish"
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url> <loc>https://richardzcode.github.io/index.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://richardzcode.github.io/languages.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://richardzcode.github.io/readme.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://richardzcode.github.io/README.md</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/blog/2018/01/10/staging-step.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/blog/2018/01/08/why-dochameleon.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-01-cra.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-01-home-n-login.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-01-menu-n-routing.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-01-react-router.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-01-run-app.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-01-semantic-ui-react.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-02-authenticator.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-02-aware-of-authstate.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-02-configure.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-02-greetings.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-02-prepare.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-02-run-app.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-03-check-contact.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-03-federated.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-03-login-form.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-03-replace-all.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-03-replace-sign-in.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-03-run-app.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-03-sign-up.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-04-daily-album.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-04-refresh-album.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-04-run-app.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-04-user-info.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-04-write-text.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-05-display-dates.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-05-get-list.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-05-run-app.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-05-switch-date.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-06-build.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-06-publish.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-Tutorial/docs/step-06-touch-ups.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+</urlset>

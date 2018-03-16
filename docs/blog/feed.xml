@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Journal Tutorial Blog</title>
+        <link>https://richardzcode.github.io/Journal-Tutorial/blog</link>
+        <description>The best place to stay up-to-date with the latest Journal Tutorial news and events.</description>
+        <lastBuildDate>Wed, 10 Jan 2018 14:00:00 GMT</lastBuildDate>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <generator>Feed for Node.js</generator>
+        <copyright>Copyright © 2018 Richard Zhang</copyright>
+        <item>
+            <title><![CDATA[Staging Step]]></title>
+            <link>https://richardzcode.github.io/Journal-Tutorial/blog/2018/01/10/staging-step.html</link>
+            <guid>https://richardzcode.github.io/Journal-Tutorial/blog/2018/01/10/staging-step.html</guid>
+            <pubDate>Wed, 10 Jan 2018 14:00:00 GMT</pubDate>
+            <description><![CDATA[The basic idea of Dochameleon is to generate a static web server by using [Server-Side-Rendering](https://reactjs.org/docs/react-dom-server.html). Contents are combined from core library and specific project.
+
+Combining from two sources can be tricky]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Why Dochameleon]]></title>
+            <link>https://richardzcode.github.io/Journal-Tutorial/blog/2018/01/08/why-dochameleon.html</link>
+            <guid>https://richardzcode.github.io/Journal-Tutorial/blog/2018/01/08/why-dochameleon.html</guid>
+            <pubDate>Mon, 08 Jan 2018 14:00:00 GMT</pubDate>
+            <description><![CDATA[It is not hard to guess where the idea of Dochameleon is from.
+
+With [Docusaurus](https://github.com/facebook/Docusaurus) built and maintained by awesome team from Facebook, why do I want to build another one?
+
+One personal reason is I am so excited about Docusaurus. Can't stop checking around, rewrite, restruct source code. So only way to satisfy is to create a new project.]]></description>
+        </item>
+    </channel>
+</rss>

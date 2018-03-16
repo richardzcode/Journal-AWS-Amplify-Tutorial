@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "examples": "dochameleon-examples",
+    "start": "dochameleon-start",
+    "build": "dochameleon-build",
+    "publish-gh-pages": "dochameleon-publish"
+  },
+  "devDependencies": {
+    "dochameleon": "^0.0.48"
+  }
+}

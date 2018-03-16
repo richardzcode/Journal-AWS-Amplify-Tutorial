@@ -1,0 +1,9 @@
+[
+  { "type": "doc", "value": "step-01-cra", "label": "Steps" },
+  {
+    "type": "url",
+    "value": "https://github.com/richardzcode/Journal-AWS-Amplify-Tutorial",
+    "img": "img/github.png",
+    "label": "GitHub"
+  }
+]
