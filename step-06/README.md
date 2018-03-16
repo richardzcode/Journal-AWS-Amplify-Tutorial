@@ -3,9 +3,8 @@
 Now let's finalize and go live
 
 * [1. Touch Ups](#1-touch-ups)
-* [2. Display Dates](#display-dates)
-* [3. Switch Date](#switch-date)
-* [4. Run App](#run-app)
+* [2. Build](#2-build)
+* [3. Publish](#3-publish)
 
 ## 1. Touch Ups
 
