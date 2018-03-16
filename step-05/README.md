@@ -3,9 +3,9 @@
 We have a journal now, but only for today. What about history?
 
 * [1. Get List](#1-get-list)
-* [2. Display Dates](#display-dates)
-* [3. Switch Date](#switch-date)
-* [4. Run App](#run-app)
+* [2. Display Dates](#2-display-dates)
+* [3. Switch Date](#3-switch-date)
+* [4. Run App](#4-run-app)
 
 ## 1. Get List
 
