@@ -8,6 +8,7 @@ AWS Amplify solved the authentication for developers. Let's use it.
 * [4. Greetings](#4-greetings)
 * [5. Home Page Aware of authState](#5-home-page-aware-of-authstate)
 * [6. Run App](#6-run-app)
+* [7. Fun Theme](#7-fun-theme)
 
 ## 1. Prepare
 
@@ -199,3 +200,31 @@ npm start
 ```
 
 [Step 03 - Authentication UI](../step-03)
+
+## 7. Fun Theme
+
+AWS Amplify is theme based. [a-theme-react](https://github.com/richardzcode/a-theme-react) has a couple example. Let have some fun.
+
+Install `a-theme-react`
+
+```
+npm install --save a-theme-react
+```
+
+Then apply a theme in your `modules/Login.jsx`:
+
+```
+...
+
+import { Instagram } from 'a-theme-react';
+
+export default class Login extends Component {
+    render() {
+        return (
+            <Authenticator theme={Instagram} hide={[Greetings]} />
+        )
+    }
+}
+```
+
+Now run app, see what happens to your login page :)
