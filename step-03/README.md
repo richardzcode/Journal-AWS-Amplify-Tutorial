@@ -225,7 +225,7 @@ For example in `src/components/VerifyContactForm.js`
 
 **hideDefault**
 
-In order to replace default Auth forms, we provide `hide` list to `Authenticator`. Once all reaplaced, we could simply pass a `hideDefault` property, no need to write the whole list.
+In order to replace default Auth forms, we provide `hide` list to `Authenticator`. Once all replaced, we could simply pass a `hideDefault` property, no need to write the whole list.
 
 ```
     <Authenticator hideDefault />
