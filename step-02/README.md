@@ -34,6 +34,8 @@ awsmobile user-files enable
 awsmobile push
 ```
 
+This [guide](https://aws.github.io/aws-amplify/media/quick_start#set-up-your-backend) have detailed information of how to setup a AWS Mobile Hub and work with AWS Amplify.
+
 ## 2. Configure AWS Amplify
 
 Open `src/App.js`, add these lines
