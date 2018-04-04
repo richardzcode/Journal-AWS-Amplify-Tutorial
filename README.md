@@ -1,4 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub last commit](https://img.shields.io/github/last-commit/richardzcode/Journal-AWS-Amplify-Tutorial.svg)]()
 
 # Journal
 Step by step tutorial to build a personal journal web app with ReactJS + AWS
