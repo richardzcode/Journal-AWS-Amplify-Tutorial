@@ -201,8 +201,6 @@ Then, in `src/modules/Home.jsx`, just check `authState` property
 npm start
 ```
 
-[Step 03 - Authentication UI](../step-03)
-
 ## 7. Fun Theme
 
 AWS Amplify is theme based. [a-theme-react](https://github.com/richardzcode/a-theme-react) has a couple example. Let have some fun.
@@ -230,3 +228,5 @@ export default class Login extends Component {
 ```
 
 Now run app, see what happens to your login page :)
+
+[Step 03 - Authentication UI](../step-03)
