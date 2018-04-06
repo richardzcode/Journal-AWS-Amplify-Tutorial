@@ -20,9 +20,7 @@ const FederatedButtons = (props) => (
 const Federated = withFederated(FederatedButtons);
 
 const federated = {
-    google_client_id: '',
-    facebook_app_id: '__replace_with_your_facebook_app_id__',
-    amazon_client_id: ''
+    facebook_app_id: '__replace_with_your_facebook_app_id__'
 };
 
 class LoginForm extends AuthPiece {
