@@ -28,6 +28,8 @@ Create a AWS Mobile Hub project with [awsmobile-CLI](https://github.com/aws/awsm
 ```
 npm install -g awsmobile-cli
 
+awsmobile configure # first time use of CLI, setup with AWS_ACCESS_KEY and AWS_SECRET_KEY
+
 awsmobile init
 awsmobile user-signin enable
 awsmobile user-files enable
