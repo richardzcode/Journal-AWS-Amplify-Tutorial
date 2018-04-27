@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "aws-amplify": "^0.2.14",
-    "aws-amplify-react": "^0.1.38",
-    "aws-sdk": "^2.150.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "aws-amplify": "^0.3.3",
+    "aws-amplify-react": "^0.1.43",
+    "aws-sdk": "^2.229.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
-    "semantic-ui-css": "^2.2.12",
+    "semantic-ui-css": "^2.3.1",
     "semantic-ui-react": "^0.75.1"
   },
   "scripts": {
