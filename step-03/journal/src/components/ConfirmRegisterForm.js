@@ -61,7 +61,7 @@ class ConfirmRegisterForm extends AuthPiece {
                     {' '}Confirm your registration
                   </Header>
                   <Form size='large'>
-                    <Segment stacked>
+                    <Segment>
                       {username? <Form.Input
                                     fluid
                                     icon='user'

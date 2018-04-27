@@ -39,7 +39,7 @@ class ForgotPasswordForm extends AuthPiece {
 
     sendView() {
         return (
-            <Segment stacked>
+            <Segment>
               <Form.Input
                 fluid
                 icon='user'
@@ -62,7 +62,7 @@ class ForgotPasswordForm extends AuthPiece {
 
     submitView() {
         return (
-            <Segment stacked>
+            <Segment>
               <Form.Input
                 fluid
                 icon='puzzle'

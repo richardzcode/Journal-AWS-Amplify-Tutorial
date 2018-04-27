@@ -49,7 +49,7 @@ class RegisterForm extends AuthPiece {
                     {' '}Register an account
                   </Header>
                   <Form size='large'>
-                    <Segment stacked>
+                    <Segment>
                       <Form.Input
                         autoFocus
                         fluid

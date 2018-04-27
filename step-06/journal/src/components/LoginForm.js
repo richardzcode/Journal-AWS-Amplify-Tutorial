@@ -79,7 +79,7 @@ class LoginForm extends AuthPiece {
                     {' '}Log-in to your account
                   </Header>
                   <Form size='large'>
-                    <Segment stacked>
+                    <Segment>
                       <Form.Input
                         autoFocus
                         fluid

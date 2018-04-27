@@ -46,7 +46,7 @@ class VerifyContactForm extends AuthPiece {
 
     verifyView() {
         return (
-            <Segment stacked>
+            <Segment>
               <Container textAlign="left">
                 <Form.Radio
                     label="Email"
@@ -74,7 +74,7 @@ class VerifyContactForm extends AuthPiece {
 
     submitView() {
         return (
-            <Segment stacked>
+            <Segment>
               <Form.Input
                 fluid
                 icon='puzzle'
