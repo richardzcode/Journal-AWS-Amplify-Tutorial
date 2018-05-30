@@ -6,6 +6,7 @@
     "aws-amplify": "^0.3.3",
     "aws-amplify-react": "^0.1.43",
     "aws-sdk": "^2.229.1",
+    "hoek": "^4.2.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-router-dom": "^4.2.2",
