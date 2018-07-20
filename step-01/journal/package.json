@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "hoek": "^4.2.1",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14",
-    "semantic-ui-css": "^2.3.1",
+    "hoek": "^5.0.3",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^1.1.4",
+    "semantic-ui-css": "^2.3.3",
     "semantic-ui-react": "^0.75.1"
   },
   "scripts": {
