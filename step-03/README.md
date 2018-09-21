@@ -1,107 +1,136 @@
 # Step 03 - Authentication UI
 
-The default Auth UI is good. However it doesn't fit with our theme. Let's replace it.
+The default Auth UI looks good. However we just like perfection. Let's replace it.
 
-* [1. Replace Sign In](#1-replace-sign-in)
-* [2. Turn LoginForm into AuthPiece](#2-turn-loginform-into-authpiece)
-* [3. Federated Sign In](#3-federated-sign-in)
-* [4. Check Contact Verification](#4-check-contact-verication)
-* [5. Sign Up](#5-sign-up)
-* [6. Replace all Auth components](#6-replace-all-auth-components)
-* [7. Run App](#7-run-app)
+* [1. Replace Sign Out](#1-replace-sign-out)
+* [2. Replace Sign In](#1-replace-sign-in)
+* [3. Integrate JSignIn with Authenticator](#3-integrate-jsignin-with-authenticator)
+* [4. Federated Sign In](#4-federated-sign-in)
+* [5. Confirm Sign In](#5-confirm-sign-in)
+* [6. Check Contact Verification](#6-check-contact-verication)
+* [7. Sign Up](#7-sign-up)
+* [8. Replace all Auth components](#8-replace-all-auth-components)
+* [9. Run App](#9-run-app)
 
-## 1. Replace Sign In
+## 1. Replace Sign Out
 
-Let's add a Semantic UI [LoginForm](https://react.semantic-ui.com/layouts/login).
+Start from the easiest, `<SignOut>` button. Not only it has the least elements, but also it lives outside of `<Authenticator>`
 
-Save the form to `src/components/LoginForm.js`.
-
-Then modify `src/modules/Login.jsx`, hide the default SignIn, add our LoginForm
+create `src/components/auth/JSignOut.jsx`
 ```
-import { Authenticator, Greetings, SignIn } from 'aws-amplify-react';
-import { LoginForm } from '../components';
+import React, { Component } from 'react';
+import { Button } from 'bootstrap-4-react';
+import { Auth } from 'aws-amplify';
 
-    render() {
-        return (
-            <Authenticator hide={[Greetings, SignIn]}>
-                <LoginForm />
-            </Authenticator>
-        )
-    }
+export default class JSignOut extends Component {
+  constructor(props) {
+    super(props);
+    this.signOut = this.signOut.bind(this);
+  }
+
+  signOut() {
+    Auth.signOut();
+  }
+
+  render() {
+    return (
+      <Button light outline sm border="0" onClick={this.signOut}>Sign Out</Button>
+    )
+  }
+}
 ```
-Now, looks better
 
-<img src="login_form.png" width="400px" />
+Update `src/components/Navigator.jsx` to import and render `<JSignOut>` instead.
 
-## 2. Turn LoginForm into AuthPiece
-
-The LoginForm actually doesn't do anything at this moment. We need to hook it up with Amplify Auth.
-
-First we turn LoginFrom from const to component. `AuthPiece` is the base class which has some built-in functions to help integrate with Auth. Let's extend from it.
 ```
-import { Auth, Logger } from 'aws-amplify';
-import { AuthPiece } from 'aws-amplify-react';
+import { JSignOut } from './auth';
 
-const logger = new Logger('LoginForm');
-
-class LoginForm extends AuthPiece {
-    constructor(props) {
-        super(props);
-
-        this.signIn = this.signIn.bind(this);
-    }
-
-    signIn() {
-        const { username, password } = this.inputs;
-        logger.debug('username: ' + username);
-        Auth.signIn(username, password)
-            .then(user => this.changeState('signedIn', user))
-            .catch(err => this.error(err));
-    }
-
+...
+  render() {
     ...
-
-    render() {
-        ...
-              <Form.Input
-                fluid
-                icon='user'
-                iconPosition='left'
-                placeholder='Username'
-                name="username"
-                onChange={this.handleInputChange}
-              />
-              <Form.Input
-                fluid
-                icon='lock'
-                iconPosition='left'
-                placeholder='Password'
-                type='password'
-                name="password"
-                onChange={this.handleInputChange}
-              />
-              <Button
-                    color='teal'
-                    fluid
-                    size='large'
-                    onClick={this.signIn}
-              >Login</Button>
-        ...
-    }
+          { user && <JSignOut /> }
+    ...
+  }
+...
 ```
 
-Explain a little bit.
+<img src="sign-out.png" width="480px" />
 
-1. `this.handleInputChange` is from `AuthPiece`, it saves input value to `this.inputs` with its name.
-2. On button click, `signIn` got called, it reads input values from `this.inputs` then call `Auth.signIn`
-3. `this.changeState` and `this.error` are from `AuthPiece`, to notify Authenticator success / failure of auth actions.
-4. Logger is an organized way of logging. Type `LOG_LEVEL = 'DEBUG'` in console log to see debug logs.
+## 2. Replace Sign In
 
-Now run app, login. From Greetings on top-right corner we can see LoginForm works. But why is LoginForm still show up after sign in success.
+Let's create a sign in form.
 
-**Hide LoginForm after Sign In**
+Save the form to `src/components/auth/JSignIn.jsx`. Implement sign in,
 
-Every AuthPiece got `authState` property. So just check `authState` in `render` method. LoginForm would show up in three states: 'signIn', 'signedOut', 'signedUp'
+```
+  signIn() {
+    const { username, password } = this.inputs;
+    Auth.signIn(username, password)
+      .then(user => this.signInSuccess(user))
+      .catch(err => this.signInError(err));
+  }
+```
+
+Then modify `src/pages/Login.jsx`, hide the default `<SignIn>`, add our `<JSignIn>`
+```
+import React, { Component } from 'react';
+import { Lead, BSpan } from 'bootstrap-4-react';
+import { Authenticator, SignIn } from 'aws-amplify-react';
+
+import { JSignIn } from '../components/auth';
+
+const CustomAuthenticator = props => (
+  <Authenticator hide={[SignIn]}>
+    <JSignIn />
+  </Authenticator>
+)
+
+export default class Login extends Component {
+  render() {
+    const { user } = this.props;
+
+    return (
+      <React.Fragment>
+        { !user && <CustomAuthenticator /> }
+        { user && <Lead>You are signed in as <BSpan font="italic">{user.username}</BSpan>.</Lead> }
+      </React.Fragment>
+    )
+  }
+}
+```
+
+<img src="sign-in.png" width="480px" />
+
+## 3. Integrate JSignIn with Authenticator
+
+When sign in successful with `<JSignIn>` seems nothing actually happens. This is because by default user is required to confirm sign in via SMS. We don't have that yet. `<Authenticator>` has the confirm SMS form. Let's see how to link `<JSignIn>` with other forms.
+
+**Emit authState/authData**
+
+By putting a component inside `<Authenticator>`, a few properties are injected by it. One of the properties is `onStateChange`. Every component inside `<Authenticator>` should notify auth state change via this handler.
+
+Modify `src/components/auth/JSignIn.jsx`,
+
+```
+  signInSuccess(user) {
+    this.setState({ error: '' });
+
+    const { onStateChange } = this.props;
+    if (!onStateChange) { return; }
+
+    if (user.challengeName === 'SMS_MFA' || user.challengeName === 'SOFTWARE_TOKEN_MFA') {
+      onStateChange('confirmSignIn', user);
+    } else {
+      onStateChange('signedIn', user);
+    }
+  }
+```
+
+**Hide JSignIn after Sign In**
+
+Notice `<JSignIn>` shows along with confirmation form. We should fix it.
+
+Every component inside `<Authenticator>` got `authState` property. So just check `authState` in `render` method. JSignIn should show up in three states: 'signIn', 'signedOut', 'signedUp'
 ```
     render() {
         const { authState } = this.props;
@@ -110,7 +139,7 @@ Every AuthPiece got `authState` property. So just check `authState` in `render` 
         ...
 ```
 
-## 3. Federated Sign In
+## 4. Federated Sign In
 
 `withFederated` HOC turns buttons into Federated sign in button.
 
@@ -124,17 +153,17 @@ Every AuthPiece got `authState` property. So just check `authState` in `render` 
   - handle `onStateChange` to notify sign in event
 
 ```
-import { AuthPiece, withFederated } from 'aws-amplify-react';
+import { withFederated } from 'aws-amplify-react';
 
 const FederatedButtons = (props) => (
-    <div>
-        <Button
-            color='blue'
-            fluid
-            size='large'
-            onClick={props.facebookSignIn}
-        >Facebook</Button>
-    </div>
+  <Button
+    secondary
+    mt="1"
+    style={{ width: '100%' }}
+    onClick={props.facebookSignIn}
+  >
+    Facebook
+  </Button>
 );
 
 const Federated = withFederated(FederatedButtons);
@@ -148,16 +177,32 @@ const federated_data = {
 ...
 
     // in login form render method,
-    // trigger AuthPiece.handleAuthStateChange when state changes, i.e. signed in
-    <Federated federated={federated_data} onStateChange={this.handleAuthStateChange} />
+    // trigger props.onStateChange when state changes, i.e. signed in
+    <Federated federated={federated_data} onStateChange={this.props.onStateChange} />
 
 ```
 
-## 4. Check Contact Verification
+## 5. Confirm Sign In
+
+Now let's replace sign in confirmation form.
+
+Create `src/components/JConfirmSignIn.jsx` with
+
+```
+    Auth.confirmSignIn(user, code, mfaType)
+      .then(() => this.confirmSuccess(user))
+      .catch(err => this.confirmError(err));
+```
+
+Then add it to `<CustomAuthenticator>` like we did for `<JSignIn>`
+
+## 6. Check Contact Verification
 
 User may forget password. In order to be able to recover password, user has to have one of the contact info verified. We should prompt user about this.
 
-Update `src/components/LoginForm`:
+The check may happen in both `<JSignIn>` and `<JConfirmSignIn>`. We show one example, the other is same.
+
+Update `src/components/auth/JSignIn`:
 ```
     constructor(props) {
         super(props);
@@ -187,11 +232,9 @@ Update `src/components/LoginForm`:
     }
 ```
 
-## 5. Sign Up
+## 7. Sign Up
 
-LoginForm has a 'Sign Up' link. On click it should show Sign Up form.
-
-This can be achieved by `changeState()` method from `AuthPiece`. The method notifies `Authenticator` state change, and then `Authenticator` notify all the Auth Pieces it contains to render properly.
+`<JSignIn>` should have a way to go to sign up form. Inside `<Authenticator>` this is achieved by emitting `authState` 'signUp'
 
 ```
         <Message>
@@ -201,27 +244,7 @@ This can be achieved by `changeState()` method from `AuthPiece`. The method noti
 
 Now on click we'll see Sign Up form, but it is the default form. Go through the same process create a RegisterForm. Same to other UI components in auth flow.
 
-## 6. Replace all Auth components
-
-In process of replacing all Auth components. Here are a couple small things.
-
-**Semantic UI radio button**
-
-The radio button from Semantic UI fires `onChange` event on label as target. Which will cause an issue in collecting state. The actual radio button state is passed as the second parameter. We need to translate it before calling `this.handleInputChange`
-
-For example in `src/components/VerifyContactForm.js`
-```
-        <Form.Radio
-            label="Email"
-            name="email"
-            onChange={(evt, semantic_data) => this.handleInputChange({ target: semantic_data })}
-         />
-          <Form.Radio
-            label='Phone Number'
-            name="phone_number"
-            onChange={(evt, semantic_data) => this.handleInputChange({ target: semantic_data })}
-          />
-```
+## 8. Replace all Auth components
 
 **hideDefault**
 
@@ -231,10 +254,12 @@ In order to replace default Auth forms, we provide `hide` list to `Authenticator
     <Authenticator hideDefault />
 ```
 
-## 7. Run App
+## 9. Run App
 
 ```
 npm start
 ```
+
+<img src="authentication.png" width="480px" />
 
 [Step 04 - Everyday Journal](../step-04)

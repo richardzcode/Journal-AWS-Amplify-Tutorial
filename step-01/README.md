@@ -1,15 +1,25 @@
-# Step 01 - Create a Basic React App
+# Step 01 - Create a Basic React App with Bootstrap
 
-* [1. Create React App](#1-create-react-app)
+* [1. Create Bootstrap React App](#1-create-bootstrap-react-app)
 * [2. Add React Router](#2-add-react-router)
-* [3. Add Semantic UI React](#3-add-semantic-ui-react)
-* [4. Menu and Routing](#4-menu-and-routing)
+* [3. Adjust Navigator](#3-adjust-navigator)
+* [4. Page Routing](#4-page-routing)
 * [5. Create Home and Login Page](#5-create-home-and-login-page)
 * [6. Run App](#6-run-app)
 
-## 1. Create React App
+## 1. Create Bootstrap React App
+
+`create-bootstrap-react-app` creates basic React App with a Bootstrap starter template.
+
+If not already installed, run
 ```
-create-react-app journal
+npm install --global create-react-app
+npm install --global create-bootstrap-react-app
+```
+
+Then create the app
+```
+create-bootstrap-react-app journal
 cd journal
 npm start
 ```
@@ -20,98 +30,128 @@ Let's use [react-router](https://github.com/ReactTraining/react-router) for rout
 npm install --save react-router-dom
 ```
 
-## 3. Add Semantic UI React
-Let's use [Semantic UI React](https://react.semantic-ui.com) for nicer looking UI.
-```
-npm install --save semantic-ui-react
-```
+## 3. Adjust Navigator
 
-There are a few ways to add CSS for Semantic UI, here is one way:
-```
-npm install --save semantic-ui-css
-```
+We don't need everything from starter template. Let's adjust. Assume we start with a Home page and a Login page.
 
-Then open `src/index.js`, add
-```
-import 'semantic-ui-css/semantic.min.css';
-```
+Open `src/components/Navigator.jsx`
 
-## 4. Menu and Routing
-Let's start with a Home page and a Login Page.
+* Update `<Navbar.Brand>` content to 'Journal'.
+* Remove 'Disabled' and 'Dropdown' menu items.
+* Update 'Link' to 'Login'.
+* Replace search with 'Greetings' text.
 
-Open `src/App.js`, import
-```
-import { HashRouter, Route, Link, Switch } from 'react-router-dom';
-import { Menu } from 'semantic-ui-react';
+With `react-router` components. `Navigator.jsx` become,
 
-import Home from './modules/Home';
-import Login from './modules/Login';
-```
-
-Render method:
-```
-    render() {
-        return (
-            <HashRouter>
-            <div>
-                <Menu>
-                    <Switch>
-                        <Route exact path="/">
-                            <Menu.Menu>
-                                <Menu.Item active><Link to="/">Home</Link></Menu.Item>
-                                <Menu.Item><Link to="/login">Login</Link></Menu.Item>
-                            </Menu.Menu>
-                        </Route>
-                        <Route exact path="/login">
-                            <Menu.Menu>
-                                <Menu.Item><Link to="/">Home</Link></Menu.Item>
-                                <Menu.Item active><Link to="/login">Login</Link></Menu.Item>
-                            </Menu.Menu>
-                        </Route>
-                    </Switch>
-                </Menu>
-                <Switch>
-                    <Route exact path="/" name="home" component={Home}/>
-                    <Route exact path="/login" name="login" component={Login}/>
-                </Switch>
-            </div>
-            </HashRouter>
-        );
-    }
-```
-
-## 5. Create Home and Login Page
-We don't have Home and Login page yet. Let's create them.
-
-`src/modules/Home.jsx`
 ```
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
+import { Navbar, Nav, BSpan } from 'bootstrap-4-react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 
-export default class Home extends Component {
-    render() {
-        return (
-            <div id="home-module">
-                <Header as="h1">Home</Header>
-            </div>
-        );
-    }
+const HomeItems = props => (
+  <React.Fragment>
+    <Nav.ItemLink href="#/" active>
+      Home
+      <BSpan srOnly>(current}</BSpan>
+    </Nav.ItemLink>
+    <Nav.ItemLink href="#/login">
+      Login
+    </Nav.ItemLink>
+  </React.Fragment>
+)
+
+const LoginItems = props => (
+  <React.Fragment>
+    <Nav.ItemLink href="#/">
+      Home
+    </Nav.ItemLink>
+    <Nav.ItemLink href="#/login" active>
+      Login
+      <BSpan srOnly>(current}</BSpan>
+    </Nav.ItemLink>
+  </React.Fragment>
+)
+
+export default class Navigator extends Component {
+  render() {
+    return (
+      <Navbar expand="md" dark bg="dark" fixed="top">
+        <Navbar.Brand href="#">Journal</Navbar.Brand>
+        <Navbar.Toggler target="#navbarsExampleDefault" />
+
+        <Navbar.Collapse id="navbarsExampleDefault">
+          <Navbar.Nav mr="auto">
+            <HashRouter>
+              <Switch>
+                <Route exact path="/" component={HomeItems} />
+                <Route exact path="/login" component={LoginItems} />
+              </Switch>
+            </HashRouter>
+          </Navbar.Nav>
+          <Navbar.Text>Greetings</Navbar.Text>
+        </Navbar.Collapse>
+      </Navbar>
+    )
+  }
 }
 ```
 
-`src/modules/Login.jsx`
+## 4. Page Routing
+
+Modify `src/components/Main.jsx` to route to Home or Login page.
+
 ```
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
+import { Container } from 'bootstrap-4-react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 
-export default class Login extends Component {
-    render() {
-        return (
-            <div id="login-module">
-                <Header as="h1">Login</Header>
-            </div>
-        );
-    }
+import { Home, Login } from '../pages';
+
+export default class Main extends Component {
+  render() {
+    return (
+      <Container as="main" role="main">
+        <div className="starter-template">
+          <HashRouter>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={Login} />
+            </Switch>
+          </HashRouter>
+        </div>
+      </Container>
+    )
+  }
+}
+```
+
+## 5. Create Home and Login Page
+
+We don't have Home and Login page yet. Let's create them.
+
+`src/pages/Home.jsx`
+```
+import React, { Component } from 'react';
+
+export default class Home extends Component {
+  render() {
+    return (
+      <h1>Home</h1>
+    )
+  }
+}
+```
+
+`src/pages/Login.jsx`
+```
+import React, { Component } from 'react';
+
+export default class Home extends Component {
+  render() {
+    return (
+      <h1>Login</h1>
+    )
+  }
 }
 ```
 
@@ -120,5 +160,7 @@ export default class Login extends Component {
 ```
 npm start
 ```
+
+<img src="starter.png" width="480px" />
 
 [Step 02 - Authentication](../step-02)

@@ -36,7 +36,7 @@ awsmobile user-files enable
 awsmobile push
 ```
 
-This [guide](https://aws.github.io/aws-amplify/media/quick_start#set-up-your-backend) have detailed information of how to setup a AWS Mobile Hub and work with AWS Amplify.
+This [guide](https://aws-amplify.github.io/amplify-js/media/quick_start.html) have detailed information of how to setup a AWS Mobile Hub and work with AWS Amplify.
 
 ## 2. Configure AWS Amplify
 
@@ -51,7 +51,7 @@ Amplify.configure(aws_exports);
 
 ## 3. Add Authenticator
 
-Open `src/modules/Login.jsx`, change content to:
+Open `src/pages/Login.jsx`, change content to:
 
 ```
 import React, { Component } from 'react';
@@ -67,168 +67,128 @@ export default class Login extends Component {
 
 Now `npm start`. Login becomes real
 
-<img src="authenticator.png" width="400px" />
+<img src="authenticator.png" width="480px" />
 
 Got ahead sign up and sign in. Create a test user.
 
 ## 4. Greetings
 
-Notice after sign in, there is a sign out button. It makes sense to have sign out button. However in our case the place is not right.
+Notice after sign in the page becomes empty. It is time to update greetings in `<Navigator>`
 
-**Hide Greetings**
+First add 'sign out' button, right after 'Greetings' text
 
-Let's hide this one. `src/modules/Login.jsx` becomes:
+`src/components/Navigator.jsx`
+
+```
+...
+import { SignOut } from 'aws-amplify-react';
+...
+
+  render() {
+    ...
+          <Navbar.Text>Greetings</Navbar.Text>
+          <SignOut />
+    ...
+  }
+```
+
+**Check user state**
+
+Now we have a sign out button, but it always shows regardless user signed in or not. We need a way to be aware of user state. This means two tasks:
+
+* Check user state
+* Trigger the check whenever user sign in / out.
+
+The fist task is done by an `Auth` method `currentAuthenticatedUser`.
+
+```
+  componentDidMount() {
+    this.loadUser();
+  }
+
+  loadUser() {
+    Auth.currentAuthenticatedUser()
+      .then(user => this.setState({ user: user }))
+      .catch(err => this.setState({ user: null }));
+  }
+```
+
+The second task we can leverage an Amplify utility, `Hub`. Events are dispatched to `Hub` for every sign in / out. We just needed to listen to the events.
+
+```
+  constructor(props) {
+    super(props);
+
+    this.loadUser = this.loadUser.bind(this);
+
+    Hub.listen('auth', this, 'navigator');
+
+    this.state = { user: null }
+  }
+
+  onHubCapsule(capsule) {
+    this.loadUser();
+  }
+```
+
+<img src="welcome.png" width="480px" />
+
+## 5. Pages Aware of authState
+
+Do the same to `src/components/Main.jsx`, and modify its `render` method to pass current user to pages.
+
+```
+  render() {
+    const { user } = this.state;
+
+    return (
+      <Container as="main" role="main">
+        <div className="starter-template">
+          <HashRouter>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={(props) => <Home user={user} />}
+              />
+              <Route
+                exact
+                path="/login"
+                render={(props) => <Login user={user} />}
+              />
+            </Switch>
+          </HashRouter>
+        </div>
+      </Container>
+    )
+  }
+```
+
+Modify `src/pages/Login.jsx` so it renders depend on user state.
 
 ```
 import React, { Component } from 'react';
-
-import { Authenticator, Greetings } from 'aws-amplify-react';
+import { Lead } from 'bootstrap-4-react';
+import { Authenticator } from 'aws-amplify-react';
 
 export default class Login extends Component {
-    render() {
-        return <Authenticator hide={[Greetings]} />
-    }
+  render() {
+    const { user } = this.props;
+
+    return (
+      <React.Fragment>
+        { !user && <Authenticator /> }
+        { user && <Lead>You are signed in as <BSpan font="italic">{user.username}</BSpan>.</Lead> }
+      </React.Fragment>
+    )
+  }
 }
 ```
 
-`Authenticator` is composed of a group of pieces, `Greetings` is one of them. `hide` defines a list of pieces to be hidden.
-
-**Greetings on Menu**
-
-What we actually want is greetings on the top-right corner. Let's edit `src/App.js` to add menu item with Greetings.
-
-First import Greetings
-
-```
-import { Greetings } from 'aws-amplify-react';
-```
-
-The default styling doesn't fit in our UI, lets add the menu item and remove default theme of Greetings.
-
-```
-const GreetingsTheme = {
-    navButton: {
-        border: '0',
-        background: 'white',
-        color: 'blue',
-        borderBottom: '1px solid',
-        fontSize: '0.8em'
-    }
-}
-
-...
-
-    <Menu.Menu position="right">
-        <Menu.Item>
-            <Greetings theme={GreetingsTheme} />
-        </Menu.Item>
-    </Menu.Menu>
-```
-
-**Custom Greetings**
-
-Change the greetings
-
-```
-    <Greetings
-        theme={GreetingsTheme}
-        outGreeting="Welcome"
-        inGreeting={(username) => `Hi ${username}`}
-    />
-```
-
-<img src="welcome.png" width="400px" />
-
-## 5. Home Page Aware of authState
-
-Now sign in works. How does Home page know if an user is signed in or not?
-
-We have `Greetings` now. So just listen to its `onStateChange` event, then pass to Home component in router.
-
-In `src/App.js`
-
-```
-    constructor(props) {
-        ...
-        this.handleStateChange = this.handleStateChange.bind(this);
-        this.state = {
-            authData: null,
-            authState: null
-        }
-    }
-
-    handleStateChange(authState, authData) {
-        this.setState({
-            authState,
-            authData
-        });
-    }
-```
-
-```
-        <Greetings
-            theme={GreetingsTheme}
-            outGreeting="Welcome"
-            inGreeting={(username) => `Hi ${username}`}
-            onStateChange={this.handleStateChange}
-        />
-```
-
-```
-        <Route exact path="/" name="home" render={(props) => (
-            <Home {...props}
-                authState={this.state.authState}
-                authData={this.state.authData}
-            />
-        )}/>
-```
-
-Then, in `src/modules/Home.jsx`, just check `authState` property
-
-```
-    render() {
-        const { authState, authData } = this.props;
-        return (
-            <div id="home-module">
-                <Header as="h1">Home</Header>
-                <div>{authState}</div>
-            </div>
-        );
-    }
-```
+Similar to `src/pages/Home.jsx`.
 
 ## 6. Run App
 
 ```
 npm start
 ```
-
-## 7. Fun Theme
-
-AWS Amplify is theme based. [a-theme-react](https://github.com/richardzcode/a-theme-react) has a couple example. Let have some fun.
-
-Install `a-theme-react`
-
-```
-npm install --save a-theme-react
-```
-
-Then apply a theme in your `modules/Login.jsx`:
-
-```
-...
-
-import { Instagram } from 'a-theme-react';
-
-export default class Login extends Component {
-    render() {
-        return (
-            <Authenticator theme={Instagram} hide={[Greetings]} />
-        )
-    }
-}
-```
-
-Now run app, see what happens to your login page :)
-
-[Step 03 - Authentication UI](../step-03)
