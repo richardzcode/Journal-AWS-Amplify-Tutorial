@@ -202,7 +202,7 @@ User may forget password. In order to be able to recover password, user has to h
 
 The check may happen in both `<JSignIn>` and `<JConfirmSignIn>`. We show one example, the other is same.
 
-Update `src/components/auth/JSignIn`:
+Update `src/components/auth/JSignIn.jsx`:
 ```
     constructor(props) {
         super(props);
@@ -232,14 +232,19 @@ Update `src/components/auth/JSignIn`:
     }
 ```
 
+Do the same to `src/components/auth/JConfirmSignIn.jsx`.
+
 ## 7. Sign Up
 
 `<JSignIn>` should have a way to go to sign up form. Inside `<Authenticator>` this is achieved by emitting `authState` 'signUp'
 
 ```
-        <Message>
-            New to us? <a onClick={() => this.changeState('signUp')}>Sign Up</a>
-        </Message>
+            <Col text="left">
+              New to us?{' '}
+              <BA href="#" preventDefault onClick={() => this.changeState('signUp')}>
+                Sign up
+              </BA>
+            </Col>
 ```
 
 Now on click we'll see Sign Up form, but it is the default form. Go through the same process create a RegisterForm. Same to other UI components in auth flow.
