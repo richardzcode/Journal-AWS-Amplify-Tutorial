@@ -191,3 +191,5 @@ Similar to `src/pages/Home.jsx`.
 ```
 npm start
 ```
+
+[Step 03 - Authentication UI](../step-03)
