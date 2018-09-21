@@ -18,4 +18,6 @@ Go to `journal` sub-folder of each step to check full source code, and run app.
 [Live Demo](http://journal-hosting-mobilehub-1908112296.s3-website-us-east-1.amazonaws.com/)
 [Documentation](https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/)
 
-**Disclaimer:** This is a personal experiment. Not an official sample.
+**Note:** This is a personal experiment. Trying to see what would developers encounter when building a somewhat real app. This tutorial does not cover all aspects of AWS Amplify.
+
+For most complete and up-to-date documentation, always check [official AWS Amplify site](https://aws-amplify.github.io/). The [Getting Started](https://aws-amplify.github.io/amplify-js/media/quick_start) is very nicely written.
