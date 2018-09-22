@@ -4,6 +4,8 @@
 # Journal
 Step by step tutorial to build a personal journal web app with ReactJS + AWS
 
+**Update:** I am updating this tutorial with AWS Amplify 1.1 and Bootstrap 4.1. So far re-worked through step-03. Stay tuned.
+
 * [Step 01 - Create a Basic React App with Bootstrap](step-01)
 * [Step 02 - Authentication](step-02)
 * [Step 03 - Authentication UI](step-03)

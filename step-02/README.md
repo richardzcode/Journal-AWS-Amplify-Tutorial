@@ -8,7 +8,6 @@ AWS Amplify solved the authentication for developers. Let's use it.
 * [4. Greetings](#4-greetings)
 * [5. Home Page Aware of authState](#5-home-page-aware-of-authstate)
 * [6. Run App](#6-run-app)
-* [7. Fun Theme](#7-fun-theme)
 
 ## 1. Prepare
 
@@ -131,7 +130,7 @@ The second task we can leverage an Amplify utility, `Hub`. Events are dispatched
 
 <img src="welcome.png" width="480px" />
 
-## 5. Pages Aware of authState
+## 5. Home Page Aware of authState
 
 Do the same to `src/components/Main.jsx`, and modify its `render` method to pass current user to pages.
 
@@ -190,3 +189,5 @@ Similar to `src/pages/Home.jsx`.
 ```
 npm start
 ```
+
+[Step 03 - Authentication UI](../step-03)
