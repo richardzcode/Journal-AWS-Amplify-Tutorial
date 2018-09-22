@@ -101,18 +101,6 @@ Now we have a sign out button, but it always shows regardless user signed in or 
 
 The fist task is done by an `Auth` method `currentAuthenticatedUser`.
 
-```
-  componentDidMount() {
-    this.loadUser();
-  }
-
-  loadUser() {
-    Auth.currentAuthenticatedUser()
-      .then(user => this.setState({ user: user }))
-      .catch(err => this.setState({ user: null }));
-  }
-```
-
 The second task we can leverage an Amplify utility, `Hub`. Events are dispatched to `Hub` for every sign in / out. We just needed to listen to the events.
 
 ```
@@ -121,13 +109,23 @@ The second task we can leverage an Amplify utility, `Hub`. Events are dispatched
 
     this.loadUser = this.loadUser.bind(this);
 
-    Hub.listen('auth', this, 'navigator');
+    Hub.listen('auth', this, 'navigator'); // Add this component as listener of auth event.
 
     this.state = { user: null }
   }
 
+  componentDidMount() {
+    this.loadUser(); // The first check
+  }
+
+  loadUser() {
+    Auth.currentAuthenticatedUser()
+      .then(user => this.setState({ user: user }))
+      .catch(err => this.setState({ user: null }));
+  }
+
   onHubCapsule(capsule) {
-    this.loadUser();
+    this.loadUser(); // Triggered every time user sign in / out
   }
 ```
 

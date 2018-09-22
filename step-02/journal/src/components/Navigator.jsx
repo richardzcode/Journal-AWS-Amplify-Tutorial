@@ -36,18 +36,18 @@ export default class Navigator extends Component {
 
     this.loadUser = this.loadUser.bind(this);
 
-    Hub.listen('auth', this, 'navigator');
+    Hub.listen('auth', this, 'navigator'); // Add this component as a listener of auth events.
 
     this.state = { user: null }
   }
 
   componentDidMount() {
-    this.loadUser();
+    this.loadUser(); // The first check
   }
 
   onHubCapsule(capsule) {
     logger.info('on Auth event', capsule);
-    this.loadUser();
+    this.loadUser(); // Triggered every time user sign in / out.
   }
 
   loadUser() {
