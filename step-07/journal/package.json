@@ -1,0 +1,22 @@
+{
+  "name": "journal",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "aws-amplify": "^0.3.3",
+    "aws-amplify-react": "^0.1.43",
+    "aws-sdk": "^2.150.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.14",
+    "semantic-ui-css": "^2.2.12",
+    "semantic-ui-react": "^0.75.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

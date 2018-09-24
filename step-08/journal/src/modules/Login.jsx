@@ -7,7 +7,8 @@ import {
     RegisterForm,
     ConfirmRegisterForm,
     VerifyContactForm,
-    ForgotPasswordForm
+    ForgotPasswordForm,
+    AfterLoginForm
 } from '../components';
 
 export default class Login extends Component {
@@ -19,6 +20,7 @@ export default class Login extends Component {
                 <ConfirmRegisterForm />
                 <VerifyContactForm />
                 <ForgotPasswordForm />
+                <AfterLoginForm />
             </Authenticator>
         )
     }

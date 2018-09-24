@@ -1,170 +1,146 @@
-# Step 04 - Everyday Journal
+# Step 04 - User Profile
 
-Now, let's build some features. We are going to build an app that let users store everyday journal.
+Let's build a simple user profile page with some user attributes.
 
-* [1. User Information](#1-user-information)
-* [2. Daily Album](#2-daily-album)
-* [3. Write Text](#3-write-text)
-* [4. Refresh Album](#4-refresh-album)
-* [5. Run App](#5-run-app)
+* [1. Create Profile Page](#1-create-profile-page)
+* [2. Load User Attributes](#2-load-user-attributes)
+* [3. Save User Attributes](#3-save-user-attributes)
+* [4. Manage States via Redux](#4-manage-states-via-redux)
 
-## 1. User Information
+## 1. Create Parofile Page
 
-First we need to make sure every user has his/her own space. Let's get user information first.
+Create `src/pages/Profile.jsx`, then add to `<Navigator>`
 
-Import `Auth`
+Modify `src/components/Navigator.jsx`
+
 ```
-import { Auth } from 'aws-amplify';
+const ProfileItems = props => (
+  <React.Fragment>
+    <Nav.ItemLink href="#/">
+      Home
+    </Nav.ItemLink>
+    <Nav.ItemLink href="#/profile" active>
+      Profile
+    </Nav.ItemLink>
+    <Nav.ItemLink href="#/login">
+      Login
+      <BSpan srOnly>(current}</BSpan>
+    </Nav.ItemLink>
+  </React.Fragment>
+)
+
+
+...
+  render() {
+    ...
+                <Route exact path="/profile" component={ProfileItems} />
+    ...
+  }
 ```
 
-Get current user info
+Add to `<Main>`
+
 ```
-    componentDidMount() {
-        Auth.currentUserInfo()
-            .then(user => this.setState({ user: user })) // we need user.id
-            .catch(err => console.log(err));
+              <Route
+                exact
+                path="/profile"
+                render={(props) => <Profile user={user} />}
+              />
+```
+
+<img src="profile.png" width="480px" />
+
+## 2. Load User Attributes
+
+We call `Auth.userAttributes` to load attributes. Since we get `user` object from `<Main>` which could be from constructing `<Profile>` component or updating, so we treat both `componentDidMount` and `componentDidUpdate`
+
+```
+  componentDidMount() {
+    if (this.props.user) { this.loadProfile() }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.user && this.props.user) {
+      this.loadProfile();
     }
+  }
+
+  loadAttributes() {
+    const { user } = this.props;
+    Auth.userAttributes(user)
+      .then(data => this.loadSuccess(data))
+      .catch(err => this.handleError(err));
+  }
+
+  loadSuccess(data) {
+    logger.info('loaded user attributes', data);
+    const profile = this.translateAttributes(data);
+    this.setState({ profile: profile });
+  }
+
+  handleError(error) {
+    logger.info('load / save user attributes error', error);
+    this.setState({ error: error.message || error });
+  }
+
+  translateAttributes(data) {
+    const profile = {};
+    data
+      .filter(attr => ['given_name', 'family_name'].includes(attr.Name))
+      .forEach(attr => profile[attr.Name] = attr.Value);
+    return profile;
+  }
 ```
 
-## 2. Daily Album
-
-To keep it simple, we organize our journal base on datetime. One day one album. Journal contains image and text.
-
-This can be easily achieved with `S3Album` from `aws-amplify-react`
-
-Imports
+`render` the component
 ```
-import { Container, Segment, Header } from 'semantic-ui-react';
-import { S3Album } from 'aws-amplify-react';
+  render() {
+    const { profile, error } = this.state;
+
+    return (
+      <Container display="flex" flex="column" alignItems="center">
+        <InputGroup mb="3" style={{ maxWidth: '24rem' }}>
+          <InputGroup.PrependText>First name</InputGroup.PrependText>
+          <Form.Input
+            type="text"
+            defaultValue={profile.given_name}
+            onChange={event => this.handleInputChange('given_name', event.target.value)}
+          />
+        </InputGroup>
+        <InputGroup mb="3" style={{ maxWidth: '24rem' }}>
+          <InputGroup.PrependText>Last name</InputGroup.PrependText>
+          <Form.Input
+            type="text"
+            defaultValue={profile.family_name}
+            onChange={event => this.handleInputChange('family_name', event.target.value)}
+          />
+        </InputGroup>
+        <Button primary px="5" onClick={this.saveProfile}>Save</Button>
+        { error && <Alert warning>{error}</Alert> }
+      </Container>
+    )
+  }
 ```
 
-Today as string
-```
-const today = () => {
-    const dt = new Date();
-    return dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
-}
-```
+To keep simple we just cover 'given_name' and 'family_name', which are from 'standard attributes' from Cognito:
+[Configuring User Pool Attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html)
 
-Render `S3Album` with userId and date as path in `memberView`
-```
-    memberView() {
-        const { user } = this.state;
-        if (!user) { return null; }
+## 3. Save User Attributes
 
-        const path = user.id + '/' + today() + '/';
-        return (
-            <Container>
-                <Header as="h2" attached="top">{today()}</Header>
-                <Segment attached>
-                    <S3Album path={path} picker />
-                </Segment>
-            </Container>
-        )
+For saving, we call `Auth.updateUserAttributes`
+
+```
+  saveProfile() {
+    const { user } = this.props;
+    if (!user) {
+      this.handleError('No user to save to');
+      return;
     }
+
+    Auth.updateUserAttributes(user, this.state.profile)
+      .then(data => this.saveSuccess(data))
+      .catch(err => this.handleError(err));
+  }
 ```
 
-## 3. Write Text
-
-`S3Album` let us select photo, as well as text from device. However as a journal of course need to be able to write something.
-
-Add an input form
-```
-        <Form>
-            <Form.Input
-                name="writingTitle"
-                placeholder="Title"
-                onChange={this.handleChange}
-            />
-            <Form.TextArea
-                name="writingContent"
-                placeholder="Write something ..."
-                onChange={this.handleChange}
-            />
-            <Form.Button onClick={this.save}>Save</Form.Button>
-        </Form>
-```
-
-Handle input
-```
-    handleChange = (e, { name, value }) => this.setState({ [name]: value });
-
-    save() {
-        const { path, writingTitle, writingContent } = this.state;
-        const textKey = writingTitle? path + writingTitle.replace(/\s+/g, '_') : null;
-        const textContent = JSON.stringify({
-            title: writingTitle,
-            constent: writingContent
-        });
-        this.setState({ textKey: textKey, textContent: textContent });
-    }
-```
-
-Use a hidden S3Text to save content
-```
-    const { user, path, textKey, textContent, ts } = this.state;
-    if (!user) { return null; }
-
-    const key = textKey? textKey + '.json' : null;
-
-    render() {
-        ...
-
-        <S3Text
-            hidden
-            contentType="application/json"
-            textKey={key}
-            body={textContent}
-            onLoad={() => this.setState({ ts: new Date().getTime() })}
-        />
-
-        ...
-    }
-```
-
-We save text content with title in json format. By default `S3Album` / `S3Text` will display raw json, not very reader friendly. We can add a `translateItem` property to `S3Album`
-
-```
-        <S3Album
-            path={path}
-            ts={ts}
-            picker
-            translateItem={this.translateItem}
-        />
-```
-
-`translateItem` method
-```
-    translateItem(data) {
-        if ((data.type === 'text') && data.textKey.endsWith('.json')) {
-            if (!data.content) { return data.content; }
-
-            const content = JSON.parse(data.content);
-            return (
-                <div>
-                    <h3>{content.title}</h3>
-                    <div>{content.content}</div>
-                </div>
-            )
-        }
-        return data.content;
-    }
-```
-
-## 4. Refresh Album
-
-Notice on `S3Text.onLoad` we set a state `ts`. This is to tell `S3Album` to reload so new writing can be displayed in album.
-
-```
-        <S3Album path={path} ts={ts} picker />
-```
-
-## 5. Run App
-
-```
-npm start
-```
-
-<img src="daily_journal.png" width="360px" />
-
-[Step 05 - List of Journals](../step-05)
+[Step 05 - State Management via Redux](../step-05)

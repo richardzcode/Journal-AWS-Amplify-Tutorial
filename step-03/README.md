@@ -267,4 +267,4 @@ npm start
 
 <img src="authentication.png" width="480px" />
 
-[Step 04 - Everyday Journal](../step-04)
+[Step 04 - User Profile](../step-04)
