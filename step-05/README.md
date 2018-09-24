@@ -65,7 +65,7 @@ export { switchUser, updateProfile, deleteProfile }
 
 #### Reducers
 
-`reducers.js` defines Redux [Reducers](https://redux.js.org/basics/reducers). Let's build two reducers, then combine them into 'Jounal'.
+`reducers.js` defines Redux [Reducers](https://redux.js.org/basics/reducers). Let's build two reducers, then combine them into 'Journal'.
 
 Notice we don't use `Object.assign` in `switchUser` reducer like normal Redux examples. That was intentional. Becuase `Object.assign` does not copy methods, which we need later.
 
