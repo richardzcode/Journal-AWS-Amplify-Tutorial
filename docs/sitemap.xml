@@ -6,10 +6,11 @@
 <url> <loc>https://richardzcode.github.io/README.md</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/blog/2018/01/10/staging-step.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/blog/2018/01/08/why-dochameleon.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
-<url> <loc>https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/docs/step-01-cra.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/docs/step-01-cbra.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/docs/step-01-home-n-login.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
-<url> <loc>https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/docs/step-01-menu-n-routing.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/docs/step-01-navigator.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/docs/step-01-react-router.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/docs/step-01-routing.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/docs/step-01-run-app.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/docs/step-01-semantic-ui-react.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/docs/step-02-authenticator.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>

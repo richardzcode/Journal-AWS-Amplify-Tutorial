@@ -6,6 +6,9 @@
     "publish-gh-pages": "dochameleon-publish"
   },
   "devDependencies": {
-    "dochameleon": "0.0.50"
+    "dochameleon": "0.0.51"
+  },
+  "dependencies": {
+    "react": "^16.5.2"
   }
 }

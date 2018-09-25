@@ -1,10 +1,10 @@
 {
   "Steps": {
     "Step 01 - Create a Basic React App": [
-      "step-01-cra",
+      "step-01-cbra",
       "step-01-react-router",
-      "step-01-semantic-ui-react",
-      "step-01-menu-n-routing",
+      "step-01-navigator",
+      "step-01-routing",
       "step-01-home-n-login",
       "step-01-run-app"
     ],

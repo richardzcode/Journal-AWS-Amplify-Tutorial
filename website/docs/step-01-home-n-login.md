@@ -1,41 +1,35 @@
 ---
 id: step-01-home-n-login
-title: Step 01 - Create a Basic React App
-sidebar_label: Create Home and Login Page
+title: Step 01 - Create a Basic React App with Bootstrap
+sidebar_label: Home and Login Page
 ---
 
-# Create Home and Login Page
+## 5. Create Home and Login Page
 
 We don't have Home and Login page yet. Let's create them.
 
-`src/modules/Home.jsx`
+`src/pages/Home.jsx`
 ```
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
 
 export default class Home extends Component {
-    render() {
-        return (
-            <div id="home-module">
-                <Header as="h1">Home</Header>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <h1>Home</h1>
+    )
+  }
 }
 ```
 
-`src/modules/Login.jsx`
+`src/pages/Login.jsx`
 ```
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
 
-export default class Login extends Component {
-    render() {
-        return (
-            <div id="login-module">
-                <Header as="h1">Login</Header>
-            </div>
-        );
-    }
+export default class Home extends Component {
+  render() {
+    return (
+      <h1>Login</h1>
+    )
+  }
 }
 ```
