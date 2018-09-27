@@ -235,3 +235,5 @@ npm start
 ```
 
 <img src="redux.png" width="480px" />
+
+[Step 06 - Everyday Journal](../step-06)
