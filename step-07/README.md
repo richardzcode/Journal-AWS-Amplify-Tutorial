@@ -11,65 +11,79 @@ We have a journal now, but only for today. What about history?
 
 Over time user may record lots of daily happenings. That can be handled by a little bit more data structure. In this turorial we keep it simple, just list all memories and extract out dates from the list.
 
+Create `src/components/WhichDay.jsx` to select from days.
+
 Get list of everything
 ```
-    Storage.list(user.id)
-        .then(data => {
-            logger.debug('list of everything', data);
-            this.extractDates(data);
-        })
-        .catch(err => logger.error('error when get list of everything', err));
+  load() {
+    const { rootPath } = this.props;
+    Storage.list(rootPath)
+      .then(data => this.loadSuccess(data))
+      .catch(err => this.loadError(err));
+  }
+
+  loadSuccess(data) {
+    logger.info('load list success', data);
+    const days = data.map(item => {
+      const match = item.key.match(/\/(\d{4}-\d{1,2}-\d{1,2})\//);
+      return match? match[1] : null;
+    })
+    .filter (day => !!day);
+    const day_set = new Set([today()].concat(days));
+    const unique_days = Array.from(day_set).sort().reverse();
+    this.setState({ days: unique_days });
+  }
 ```
 
 Extract dates
 ```
-    extractDates(list) {
-        const date_list = list.map(item => {
-            const match = item.key.match(/\/(\d{4}-\d{2}-\d{2})\//);
-            return match? match[1] : null;
-        });
-
-        const unique_dates = Array.from(new Set(date_list)).sort().reverse();
-        this.setState({ dates: unique_dates });
-    }
+  loadSuccess(data) {
+    logger.info('load list success', data);
+    const days = data.map(item => {
+      const match = item.key.match(/\/(\d{4}-\d{1,2}-\d{1,2})\//);
+      return match? match[1] : null;
+    })
+    .filter (day => !!day);
+    const day_set = new Set([today()].concat(days));
+    const unique_days = Array.from(day_set).sort().reverse();
+    this.setState({ days: unique_days });
+  }
 ```
 
 ## 2. Display Dates
 
-Convert to dropdown options
-```
-    const history = dates.map(date => {
-        return {
-            key: date,
-            value: date,
-            text: date
-        };
-    });
-```
+Display with `<Dropdown>`
 
-Display
 ```
-        <Dropdown
-            position="right"
-            placeholder="History"
-            options={history}
-            onChange={this.handleDateChange}
-        />
+          <Dropdown>
+            <Dropdown.Button secondary>{day}</Dropdown.Button>
+            <Dropdown.Menu>
+              { days.map(day => {
+                  return (
+                    <Dropdown.Item
+                      href="#"
+                      key={day}
+                      onClick={() => this.setDay(day)}
+                    >
+                      {day}
+                    </Dropdown.Item>
+                  )
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
 ```
 
 ## 3. Switch Date
 
-```
-    handleDateChange(evt, data) {
-        const date = data.value;
-        const { user } = this.state;
-        const path = user.id + '/' + date + '/';
+`<WhichDay>` emit `onDaySelected` event, then `<Home>` page update accordingly
 
-        this.setState({
-            date: date,
-            path: path
-        });
-    }
+```
+  setDay(day) {
+    this.setState({ day: day });
+
+    const { onDaySelected } = this.props;
+    if (onDaySelected) { onDaySelected(day); }
+  }
 ```
 
 ## 4. Run App
@@ -78,6 +92,6 @@ Display
 npm start
 ```
 
-<img src="journal_history.png" width="360px" />
+<img src="journal-by-day.png" width="480px" />
 
 [Step 08 - Go Live](../step-08)

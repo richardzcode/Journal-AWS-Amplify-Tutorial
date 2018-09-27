@@ -1,5 +1,6 @@
-export { default as LoginForm } from './LoginForm';
-export { default as RegisterForm } from './RegisterForm';
-export { default as ConfirmRegisterForm } from './ConfirmRegisterForm';
-export { default as ForgotPasswordForm } from './ForgotPasswordForm';
-export { default as VerifyContactForm } from './VerifyContactForm';
+export { default as Navigator } from './Navigator';
+export { default as Main } from './Main';
+export { default as WhichDay } from './WhichDay';
+
+export { default as Unexpected } from './Unexpected';
+export { default as Unauthorized } from './Unauthorized';

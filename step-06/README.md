@@ -45,9 +45,17 @@ Modify `src/pages/Home.jsx`
 Path of an album is `$user_id$/$time_stamp$/`
 
 ```
+const padding = n => {
+  return n > 9 ? n : '0' + n;
+}
+
 const today = () => {
-    const dt = new Date();
-    return dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
+  const dt = new date();
+  return [
+    dt.getfullyear(),
+    padding(dt.getmonth() + 1),
+    padding(dt.getdate())
+  ].join('-');
 }
 
 const album_path = user_id => {

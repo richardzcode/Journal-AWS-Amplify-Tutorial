@@ -1,11 +1,11 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Bootstrap 4 React",
+  "name": "Bootstrap 4 React Documentation",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "192x192",
-      "type": "image/png"
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
     }
   ],
   "start_url": "./index.html",
