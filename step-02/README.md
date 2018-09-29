@@ -2,16 +2,20 @@
 
 AWS Amplify solved the authentication for developers. Let's use it.
 
-* [1. Prepare](#1-prepare)
+* [1. Install and Setup](#1-install-and-setup)
+  * [Install AWS Amplify](#install-aws-amplify)
+  * [Setup AWS services](#setup-aws-services)
 * [2. Configure AWS Amplify](#2-configure-aws-amplify)
-* [3. Add Authenticator](#3-add-authenticator)
-* [4. Greetings](#4-greetings)
-* [5. Home Page Aware of authState](#5-home-page-aware-of-authstate)
+* [3. Amplify Authenticator](#3-amplify-authenticator)
+* [4. Greetings on Navbar](#4-greetings-on-navbar)
+  * [Sign out button](#sign-out-button)
+  * [Check user state](#check user state)
+* [5. Home Page and authState](#5-home-page-and-authstate)
 * [6. Run App](#6-run-app)
 
-## 1. Prepare
+## 1. Install and Setup
 
-### Library
+### Install AWS Amplify
 
 Install package, core library and react specific.
 
@@ -20,7 +24,7 @@ npm install --save aws-amplify
 npm install --save aws-amplify-react
 ```
 
-### Service
+### Setup AWS services
 
 Create a AWS Mobile Hub project with [awsmobile-CLI](https://github.com/aws/awsmobile-cli)
 
@@ -39,7 +43,7 @@ This [guide](https://aws-amplify.github.io/amplify-js/media/quick_start.html) ha
 
 ## 2. Configure AWS Amplify
 
-Open `src/App.js`, add these lines
+With CLI, AWS service settings are generated at `src/aws-exports.js`. Open `src/App.js`, add these lines to configure.
 
 ```
 import Amplify from 'aws-amplify';
@@ -48,7 +52,7 @@ import aws_exports from './aws-exports';
 Amplify.configure(aws_exports);
 ```
 
-## 3. Add Authenticator
+## 3. Amplify Authenticator
 
 Open `src/pages/Login.jsx`, change content to:
 
@@ -70,9 +74,11 @@ Now `npm start`. Login becomes real
 
 Got ahead sign up and sign in. Create a test user.
 
-## 4. Greetings
+## 4. Greetings on Navbar
 
 Notice after sign in the page becomes empty. It is time to update greetings in `<Navigator>`
+
+### Sign out button
 
 First add 'sign out' button, right after 'Greetings' text
 
@@ -91,7 +97,7 @@ import { SignOut } from 'aws-amplify-react';
   }
 ```
 
-**Check user state**
+### Check user state
 
 Now we have a sign out button, but it always shows regardless user signed in or not. We need a way to be aware of user state. This means two tasks:
 
@@ -130,7 +136,7 @@ The second task we can leverage an Amplify utility, `Hub`. Events are dispatched
 
 <img src="welcome.png" width="480px" />
 
-## 5. Home Page Aware of authState
+## 5. Home Page and authState
 
 Do the same to `src/components/Main.jsx`, and modify its `render` method to pass current user to pages.
 
