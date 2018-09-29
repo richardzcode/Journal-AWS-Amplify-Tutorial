@@ -5,9 +5,12 @@ Now, let's build some features. We are going to build an app that let users stor
 * [1. User Information](#1-user-information)
 * [2. Daily Album](#2-daily-album)
 * [3. Create Album Component](#3-create-album-component)
+  * [Album](#album)
+  * [AlbumItem](#albumitem)
+  * [FilePicker](#filepicker)
 * [4. Refresh Album](#4-refresh-album)
 * [5. Upload Text](#5-upload-text)
-* [6. Run App](#5-run-app)
+* [6. Run App](#6-run-app)
 
 ## 1. User Information
 
@@ -105,7 +108,7 @@ Then render with `theme`
 
 ## 3. Create Album Component
 
-**Album**
+### Album
 
 Let's create our own `<Album>` so we don't need to learn Amplify theming.
 
@@ -149,7 +152,7 @@ Load items to render
 
 <img src="album-render-key.png" width="480px" />
 
-**AlbumItem**
+### AlbumItem
 
 Of course we want image instead of the key. Let's create an `<AlbumItem>` for it.
 
@@ -187,7 +190,7 @@ Then update `src/components/album/Album.jsx`
         { items.map(item => <AlbumItem key={item.key} item={item} />) }
 ```
 
-**FilePicker**
+### FilePicker
 
 Now we can see the images uploaded by `<S3Album>`. Let's build a component to upload file.
 
