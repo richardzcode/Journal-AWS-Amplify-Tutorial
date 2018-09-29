@@ -13,14 +13,13 @@ Step by step tutorial to build a personal journal web app with ReactJS + AWS
 * [Step 05 - State Management via Redux](step-05)
 * [Step 06 - Everyday Journal](step-06)
 * [Step 07 - List of Journals](step-07)
-* [Step 08 - Go Live](step-08) (rewrite in progress ...)
+* [Step 08 - Go Live](step-08)
 
 Go to `journal` sub-folder of each step to check full source code, and run app.
 
 <img src="step-07/journal-by-day.png" width="480px" />
 
-[Live Demo](http://journal-hosting-mobilehub-1908112296.s3-website-us-east-1.amazonaws.com/)
-[Documentation](https://richardzcode.github.io/Journal-AWS-Amplify-Tutorial/)
+[Live Demo](https://s3-us-west-1.amazonaws.com/journal-hosting-mobilehub-142591078/index.html#/)
 
 **Note:** This is a personal experiment. Trying to see what would developers encounter when building a somewhat real app. This tutorial does not cover all aspects of AWS Amplify.
 

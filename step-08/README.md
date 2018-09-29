@@ -1,4 +1,4 @@
-# Step 06 - Go Live
+# Step 08 - Go Live
 
 Now let's finalize and go live
 
@@ -8,7 +8,7 @@ Now let's finalize and go live
 
 ## 1. Touch Ups
 
-We need to change icon, app title. Also I've added a sidebar point to this GitHub repo.
+Change icon, app title, and some small updates.
 
 Not necessary to explain details in this step. Just check out the code should be fine.
 
@@ -20,6 +20,8 @@ npm run build
 
 The command generate everything needed into `build/` folder.
 
+Remember to set `homepage` in your `package.json` if publishing to a [relative path](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#building-for-relative-paths)
+
 ## 3. Publish
 
 This app is built completely in HTML/JS/CSS, no backend server needed. Just a static file hosting will do. Here we choose Amazon S3.
@@ -30,4 +32,4 @@ Go to AWS Console -> Mobile Hub. Click `Resources` on the top-right corner. Look
 
 Upload files under `build/` folder to this bucket. Then open in browser. We are live!
 
-<img src="live.png" width="360px" />
+<img src="seattle.png" width="480px" />
