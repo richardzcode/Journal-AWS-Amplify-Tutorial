@@ -6,6 +6,9 @@ State management tool essentially is a pub-sub system with or without a mutable 
 
 * [1. Install Redux](#1-install-redux)
 * [2. Redux Files](#2-redux-files)
+  * [Actions](#actions)
+  * [Reducers](#reducers)
+  * [Store](#store)
 * [3. Amplify Bridge](#3-amplify-bridge)
 * [4. Listen to Redux Store](#4-listen-to-redux-store)
 * [5. Dispatch to Redux Store](#5-dispatch-to-redux-store)
@@ -28,7 +31,7 @@ Then create a `store` module with Redux. We build these files:
     └── reducers.js
 ```
 
-#### Actions
+### Actions
 
 `actions.js` defines Redux [Actions](https://redux.js.org/basics/actions). So far we have three actions,
 
@@ -63,7 +66,7 @@ export { SWITCH_USER, UPDATE_PROFILE, DELETE_PROFILE }
 export { switchUser, updateProfile, deleteProfile }
 ```
 
-#### Reducers
+### Reducers
 
 `reducers.js` defines Redux [Reducers](https://redux.js.org/basics/reducers). Let's build two reducers, then combine them into 'Journal'.
 
@@ -106,7 +109,7 @@ const Journal = combineReducers({
 export default Journal;
 ```
 
-#### Store
+### Store
 
 `index.js` create and export a Redux [Store](https://redux.js.org/basics/store).
 
