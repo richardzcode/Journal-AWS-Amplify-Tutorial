@@ -202,7 +202,7 @@ In `src/components/Navigator.jsx` we can do some clean up now.
   }
 
   storeListener() {
-    logger.info('redux notifivation');
+    logger.info('redux notification');
     const state = store.getState();
     this.setState({ user: state.user, profile: state.profile });
   }
