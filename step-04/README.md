@@ -5,7 +5,7 @@ Let's build a simple user profile page with some user attributes.
 * [1. Create Profile Page](#1-create-profile-page)
 * [2. Load User Attributes](#2-load-user-attributes)
 * [3. Save User Attributes](#3-save-user-attributes)
-* [4. Manage States via Redux](#4-manage-states-via-redux)
+* [4. Run App](#4-run-app)
 
 ## 1. Create Parofile Page
 
@@ -141,6 +141,12 @@ For saving, we call `Auth.updateUserAttributes`
       .then(data => this.saveSuccess(data))
       .catch(err => this.handleError(err));
   }
+```
+
+## 4. Run App
+
+```
+npm start
 ```
 
 [Step 05 - State Management via Redux](../step-05)
