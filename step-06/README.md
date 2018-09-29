@@ -27,6 +27,12 @@ In `src/store/AmplifyBridge.js`, add `loadUserInfo` method and combine its resul
     this.loadProfile(user);
   }
 
+  loadUserInfo(user) {
+    Auth.currentUserInfo()
+      .then(info => this.loadUserInfoSuccess(user, info))
+      .catch(err => this.loadUserInfoUserError(user, err));
+  }
+
   loadUserInfoSuccess(user, info) {
     logger.info('load user info success', user, info);
     Object.assign(user, info);
