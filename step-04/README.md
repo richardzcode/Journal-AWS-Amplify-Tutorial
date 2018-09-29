@@ -149,4 +149,6 @@ For saving, we call `Auth.updateUserAttributes`
 npm start
 ```
 
+<img src="profile-edit.png" width="480px" />
+
 [Step 05 - State Management via Redux](../step-05)
