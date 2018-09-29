@@ -163,4 +163,4 @@ npm start
 
 <img src="starter.png" width="480px" />
 
-[Step 02 - Authentication](../step-02)
+[Step 02 - Amplify Authentication](../step-02)

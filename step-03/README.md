@@ -1,4 +1,4 @@
-# Step 03 - Authentication UI
+# Step 03 - Customize Authentication UI
 
 The default Auth UI looks good. However we just like perfection. Let's replace it.
 

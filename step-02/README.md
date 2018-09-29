@@ -1,4 +1,4 @@
-# Step 02 - Authentication
+# Step 02 - Amplify Authentication
 
 AWS Amplify solved the authentication for developers. Let's use it.
 
@@ -190,4 +190,4 @@ Similar to `src/pages/Home.jsx`.
 npm start
 ```
 
-[Step 03 - Authentication UI](../step-03)
+[Step 03 - Customize Authentication UI](../step-03)
