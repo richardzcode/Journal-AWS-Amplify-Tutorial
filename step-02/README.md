@@ -9,7 +9,7 @@ AWS Amplify solved the authentication for developers. Let's use it.
 * [3. Amplify Authenticator](#3-amplify-authenticator)
 * [4. Greetings on Navbar](#4-greetings-on-navbar)
   * [Sign out button](#sign-out-button)
-  * [Check user state](#check user state)
+  * [Check user state](#check-user-state)
 * [5. Home Page and authState](#5-home-page-and-authstate)
 * [6. Run App](#6-run-app)
 
