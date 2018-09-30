@@ -2,7 +2,7 @@
 
 * [1. Create Bootstrap React App](#1-create-bootstrap-react-app)
 * [2. Add React Router](#2-add-react-router)
-* [3. Adjust Navigator](#3-adjust-navigator)
+* [3. Update Navigator](#3-update-navigator)
 * [4. Page Routing](#4-page-routing)
 * [5. Create Home and Login Page](#5-create-home-and-login-page)
 * [6. Run App](#6-run-app)
@@ -32,9 +32,9 @@ Let's use [react-router](https://github.com/ReactTraining/react-router) for rout
 npm install --save react-router-dom
 ```
 
-## 3. Adjust Navigator
+## 3. Update Navigator
 
-We don't need everything from starter template. Let's adjust. Assume we start with a Home page and a Login page.
+We don't need everything from starter template. Let's start with a Home page and a Login page.
 
 Open `src/components/Navigator.jsx`
 
