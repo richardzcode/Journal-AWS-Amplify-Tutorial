@@ -24,6 +24,8 @@ cd journal
 npm start
 ```
 
+<img src="bootstrap-starter.png" width="480px" />
+
 ## 2. Add React Router
 Let's use [react-router](https://github.com/ReactTraining/react-router) for routing.
 ```
