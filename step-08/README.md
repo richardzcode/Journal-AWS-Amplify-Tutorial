@@ -30,6 +30,6 @@ In [Step 02](../step-02) we created an AWS Mobile Hub project. During that step 
 
 Go to AWS Console -> Mobile Hub. Click `Resources` on the top-right corner. Look for "Amazon S3 Buckets", then find the bucket that has `hosting` inside its name.
 
-Upload files under `build/` folder to this bucket. Then open in browser. We are live!
+Upload files under `build/` folder to this bucket. Then open in browser. We are [live!](https://s3-us-west-1.amazonaws.com/journal-hosting-mobilehub-142591078/index.html)
 
 <img src="seattle.png" width="480px" />
