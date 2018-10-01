@@ -19,7 +19,7 @@ AWS Amplify solved the authentication for developers. Let's use it.
 
 Install package, core library and react specific.
 
-```
+```bash
 npm install --save aws-amplify
 npm install --save aws-amplify-react
 ```
@@ -28,7 +28,7 @@ npm install --save aws-amplify-react
 
 Create a AWS Mobile Hub project with [awsmobile-CLI](https://github.com/aws/awsmobile-cli)
 
-```
+```bash
 npm install -g awsmobile-cli
 
 awsmobile configure # first time use of CLI, setup with AWS_ACCESS_KEY and AWS_SECRET_KEY
@@ -45,7 +45,7 @@ This [guide](https://aws-amplify.github.io/amplify-js/media/quick_start.html) ha
 
 With CLI, AWS service settings are generated at `src/aws-exports.js`. Open `src/App.js`, add these lines to configure.
 
-```
+```javascript
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
 
@@ -56,7 +56,7 @@ Amplify.configure(aws_exports);
 
 Open `src/pages/Login.jsx`, change content to:
 
-```
+```javascript
 import React, { Component } from 'react';
 
 import { Authenticator } from 'aws-amplify-react';
@@ -84,7 +84,7 @@ First add 'sign out' button, right after 'Greetings' text
 
 `src/components/Navigator.jsx`
 
-```
+```javascript
 ...
 import { SignOut } from 'aws-amplify-react';
 ...
@@ -108,7 +108,7 @@ The fist task is done by an `Auth` method `currentAuthenticatedUser`.
 
 The second task we can leverage an Amplify utility, `Hub`. Events are dispatched to `Hub` for every sign in / out. We just needed to listen to the events.
 
-```
+```javascript
   constructor(props) {
     super(props);
 
@@ -140,7 +140,7 @@ The second task we can leverage an Amplify utility, `Hub`. Events are dispatched
 
 Do the same to `src/components/Main.jsx`, and modify its `render` method to pass current user to pages.
 
-```
+```javascript
   render() {
     const { user } = this.state;
 
@@ -169,7 +169,7 @@ Do the same to `src/components/Main.jsx`, and modify its `render` method to pass
 
 Modify `src/pages/Login.jsx` so it renders depend on user state.
 
-```
+```javascript
 import React, { Component } from 'react';
 import { Lead } from 'bootstrap-4-react';
 import { Authenticator } from 'aws-amplify-react';
@@ -192,7 +192,7 @@ Similar to `src/pages/Home.jsx`.
 
 ## 6. Run App
 
-```
+```bash
 npm start
 ```
 

@@ -16,7 +16,7 @@ State management tool essentially is a pub-sub system with or without a mutable 
 
 ## 1. Install Redux
 
-```
+```bash
 npm install --save redux
 ```
 
@@ -35,7 +35,7 @@ Then create a `store` module with Redux. We build these files:
 
 `actions.js` defines Redux [Actions](https://redux.js.org/basics/actions). So far we have three actions,
 
-```
+```javascript
 const SWITCH_USER = 'SWITCH_USER';
 
 const UPDATE_PROFILE = 'UPDATE_PROFILE';
@@ -72,7 +72,7 @@ export { switchUser, updateProfile, deleteProfile }
 
 Notice we don't use `Object.assign` in `switchUser` reducer like normal Redux examples. That was intentional. Becuase `Object.assign` does not copy methods, which we need later.
 
-```
+```javascript
 import { combineReducers } from 'redux';
 
 import { SWITCH_USER, UPDATE_PROFILE, DELETE_PROFILE } from './actions';
@@ -113,7 +113,7 @@ export default Journal;
 
 `index.js` create and export a Redux [Store](https://redux.js.org/basics/store).
 
-```
+```javascript
 import { createStore } from 'redux';
 
 import Journal from './reducers';
@@ -132,7 +132,7 @@ Then we create `AmplifyBridge.js` to link Amplify `Hub` with Redux.
     └── AmplifyBridge.js
 ```
 
-```
+```javascript
 export default class AmplifyBridge {
   constructor(store) {
     this.store = store;
@@ -172,7 +172,7 @@ export default class AmplifyBridge {
 
 Then we just create the bridge at `src/App.js`
 
-```
+```javascript
 import store, { AmplifyBridge } from './store';
 
 new AmplifyBridge(store);
@@ -184,7 +184,7 @@ Now everytime user sign in / out, Redux store is updated with user and profile. 
 
 In `src/components/Navigator.jsx` we can do some clean up now.
 
-```
+```javascript
   constructor(props) {
     super(props);
 
@@ -210,7 +210,7 @@ In `src/components/Navigator.jsx` we can do some clean up now.
 
 Since we have profile too, small update to greetings in `<Navigator>`
 
-```
+```javascript
             { user? 'Hi ' + (profile.given_name || user.username) : 'Please sign in' }
 ```
 
@@ -220,9 +220,9 @@ Then do the same to `src/components/Main.jsx`
 
 ## 5. Dispatch to Redux Store
 
-Amplify `Hub` captures user sign in / out, we just pipe to Redux. For user profile changes we have to dispatch to store manually.
+We pipe sign in / out events from Amplify `Hub` to Redux. User profile changes have to be dispatched to store manually.
 
-```
+```javascript
   saveSuccess(data) {
     logger.info('saved user profile', data);
     store.dispatch(updateProfile(this.state.profile));
@@ -233,7 +233,7 @@ Amplify `Hub` captures user sign in / out, we just pipe to Redux. For user profi
 
 Now run app, update first name and notice greeting changes right after you click 'Save'
 
-```
+```bash
 npm start
 ```
 

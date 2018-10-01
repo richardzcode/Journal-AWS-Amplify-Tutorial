@@ -17,7 +17,7 @@ The default Auth UI looks good. However we just like perfection. Let's replace i
 Start from the easiest, `<SignOut>` button. Not only it has the least elements, but also it lives outside of `<Authenticator>`
 
 create `src/components/auth/JSignOut.jsx`
-```
+```javascript
 import React, { Component } from 'react';
 import { Button } from 'bootstrap-4-react';
 import { Auth } from 'aws-amplify';
@@ -42,7 +42,7 @@ export default class JSignOut extends Component {
 
 Update `src/components/Navigator.jsx` to import and render `<JSignOut>` instead.
 
-```
+```javascript
 import { JSignOut } from './auth';
 
 ...
@@ -62,7 +62,7 @@ Let's create a sign in form.
 
 Save the form to `src/components/auth/JSignIn.jsx`. Implement sign in,
 
-```
+```javascript
   signIn() {
     const { username, password } = this.inputs;
     Auth.signIn(username, password)
@@ -72,7 +72,7 @@ Save the form to `src/components/auth/JSignIn.jsx`. Implement sign in,
 ```
 
 Then modify `src/pages/Login.jsx`, hide the default `<SignIn>`, add our `<JSignIn>`
-```
+```javascript
 import React, { Component } from 'react';
 import { Lead, BSpan } from 'bootstrap-4-react';
 import { Authenticator, SignIn } from 'aws-amplify-react';
@@ -111,7 +111,7 @@ By putting a component inside `<Authenticator>`, a few properties are injected b
 
 Modify `src/components/auth/JSignIn.jsx`,
 
-```
+```javascript
   signInSuccess(user) {
     this.setState({ error: '' });
 
@@ -131,7 +131,7 @@ Modify `src/components/auth/JSignIn.jsx`,
 Notice `<JSignIn>` shows along with confirmation form. We should fix it.
 
 Every component inside `<Authenticator>` got `authState` property. So just check `authState` in `render` method. JSignIn should show up in three states: 'signIn', 'signedOut', 'signedUp'
-```
+```javascript
     render() {
         const { authState } = this.props;
         if (!['signIn', 'signedOut', 'signedUp'].includes(authState)) { return null; }
@@ -152,7 +152,7 @@ Every component inside `<Authenticator>` got `authState` property. So just check
   - pass in `federated` property with app ids
   - handle `onStateChange` to notify sign in event
 
-```
+```javascript
 import { withFederated } from 'aws-amplify-react';
 
 const FederatedButtons = (props) => (
@@ -188,7 +188,7 @@ Now let's replace sign in confirmation form.
 
 Create `src/components/JConfirmSignIn.jsx` with
 
-```
+```javascript
     Auth.confirmSignIn(user, code, mfaType)
       .then(() => this.confirmSuccess(user))
       .catch(err => this.confirmError(err));
@@ -203,7 +203,7 @@ User may forget password. In order to be able to recover password, user has to h
 The check may happen in both `<JSignIn>` and `<JConfirmSignIn>`. We show one example, the other is same.
 
 Update `src/components/auth/JSignIn.jsx`:
-```
+```javascript
     constructor(props) {
         super(props);
 
@@ -238,7 +238,7 @@ Do the same to `src/components/auth/JConfirmSignIn.jsx`.
 
 `<JSignIn>` should have a way to go to sign up form. Inside `<Authenticator>` this is achieved by emitting `authState` 'signUp'
 
-```
+```javascript
             <Col text="left">
               New to us?{' '}
               <BA href="#" preventDefault onClick={() => this.changeState('signUp')}>
@@ -255,13 +255,13 @@ Now on click we'll see Sign Up form, but it is the default form. Go through the 
 
 In order to replace default Auth forms, we provide `hide` list to `Authenticator`. Once all replaced, we could simply pass a `hideDefault` property, no need to write the whole list.
 
-```
+```javascript
     <Authenticator hideDefault />
 ```
 
 ## 9. Run App
 
-```
+```bash
 npm start
 ```
 

@@ -13,7 +13,7 @@ Create `src/pages/Profile.jsx`, then add to `<Navigator>`
 
 Modify `src/components/Navigator.jsx`
 
-```
+```javascript
 const ProfileItems = props => (
   <React.Fragment>
     <Nav.ItemLink href="#/">
@@ -40,7 +40,7 @@ const ProfileItems = props => (
 
 Add to `<Main>`
 
-```
+```javascript
               <Route
                 exact
                 path="/profile"
@@ -54,7 +54,7 @@ Add to `<Main>`
 
 We call `Auth.userAttributes` to load attributes. Since we get `user` object from `<Main>` which could be from constructing `<Profile>` component or updating, so we treat both `componentDidMount` and `componentDidUpdate`
 
-```
+```javascript
   componentDidMount() {
     if (this.props.user) { this.loadProfile() }
   }
@@ -93,7 +93,7 @@ We call `Auth.userAttributes` to load attributes. Since we get `user` object fro
 ```
 
 `render` the component
-```
+```javascript
   render() {
     const { profile, error } = this.state;
 
@@ -129,7 +129,7 @@ To keep simple we just cover 'given_name' and 'family_name', which are from 'sta
 
 For saving, we call `Auth.updateUserAttributes`
 
-```
+```javascript
   saveProfile() {
     const { user } = this.props;
     if (!user) {
@@ -145,7 +145,7 @@ For saving, we call `Auth.updateUserAttributes`
 
 ## 4. Run App
 
-```
+```bash
 npm start
 ```
 

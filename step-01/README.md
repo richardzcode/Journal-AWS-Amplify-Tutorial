@@ -12,13 +12,13 @@
 `create-bootstrap-react-app` creates basic React App with a Bootstrap starter template.
 
 If not already installed, run
-```
+```bash
 npm install --global create-react-app
 npm install --global create-bootstrap-react-app
 ```
 
 Then create the app
-```
+```bash
 create-bootstrap-react-app journal
 cd journal
 npm start
@@ -28,7 +28,7 @@ npm start
 
 ## 2. Add React Router
 Let's use [react-router](https://github.com/ReactTraining/react-router) for routing.
-```
+```bash
 npm install --save react-router-dom
 ```
 
@@ -45,7 +45,7 @@ Open `src/components/Navigator.jsx`
 
 With `react-router` components. `Navigator.jsx` become,
 
-```
+```javascript
 import React, { Component } from 'react';
 import { Navbar, Nav, BSpan } from 'bootstrap-4-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
@@ -102,7 +102,7 @@ export default class Navigator extends Component {
 
 Modify `src/components/Main.jsx` to route to Home or Login page.
 
-```
+```javascript
 import React, { Component } from 'react';
 import { Container } from 'bootstrap-4-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
@@ -132,7 +132,7 @@ export default class Main extends Component {
 We don't have Home and Login page yet. Let's create them.
 
 `src/pages/Home.jsx`
-```
+```javascript
 import React, { Component } from 'react';
 
 export default class Home extends Component {
@@ -145,7 +145,7 @@ export default class Home extends Component {
 ```
 
 `src/pages/Login.jsx`
-```
+```javascript
 import React, { Component } from 'react';
 
 export default class Home extends Component {
@@ -159,7 +159,7 @@ export default class Home extends Component {
 
 ## 6. Run App
 
-```
+```bash
 npm start
 ```
 
