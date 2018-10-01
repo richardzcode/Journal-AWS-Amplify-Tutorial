@@ -14,7 +14,7 @@ Over time user may record lots of daily happenings. That can be handled by a lit
 Create `src/components/WhichDay.jsx` to select from days.
 
 Get list of everything
-```
+```javascript
   load() {
     const { rootPath } = this.props;
     Storage.list(rootPath)
@@ -36,7 +36,7 @@ Get list of everything
 ```
 
 Extract dates
-```
+```javascript
   loadSuccess(data) {
     logger.info('load list success', data);
     const days = data.map(item => {
@@ -54,7 +54,7 @@ Extract dates
 
 Display with `<Dropdown>`
 
-```
+```javascript
           <Dropdown>
             <Dropdown.Button secondary>{day}</Dropdown.Button>
             <Dropdown.Menu>
@@ -77,7 +77,7 @@ Display with `<Dropdown>`
 
 `<WhichDay>` emit `onDaySelected` event, then `<Home>` page update accordingly
 
-```
+```javascript
   setDay(day) {
     this.setState({ day: day });
 
@@ -88,7 +88,7 @@ Display with `<Dropdown>`
 
 ## 4. Run App
 
-```
+```bash
 npm start
 ```
 
