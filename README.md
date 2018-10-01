@@ -1,5 +1,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub last commit](https://img.shields.io/github/last-commit/richardzcode/Journal-AWS-Amplify-Tutorial.svg)]()
+[![Gitter Chat](https://badges.gitter.im/aws/aws-amplify.png)](https://gitter.im/AWS-Amplify/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=AWS%20Amplify%20Tutorial%0A&url=https://github.com/richardzcode/Journal-AWS-Amplify-Tutorial&hashtags=react,bootstrap,aws)
 
 # Journal
 Step by step tutorial to build a personal journal web app with ReactJS + AWS
