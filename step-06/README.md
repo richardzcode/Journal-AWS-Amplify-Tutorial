@@ -14,13 +14,11 @@ Now, let's build some features. We are going to build an app that let users stor
 
 ## 1. User Information
 
-First we need to make sure every user has his/her own space. `user_id` is a good choice. However the user object from `Auth.currentAuthenticatedUser` does not have user_id. `Auth.currentUserInfo` has. Can we combine these two together?
-
-With Redux integrated, we just need to implement in one place.
+First we need to make sure every user has his/her own space. `user_id` is a good choice. However `Auth.currentAuthenticatedUser` does not have user_id. `Auth.currentUserInfo` has. With Redux integrated, we can combine these two together in on place.
 
 In `src/store/AmplifyBridge.js`, add `loadUserInfo` method and combine its result to `authenticated user` object on success, then `switchUser` with the combined user object.
 
-```
+```javascript
   checkUserSuccess(user) {
     logger.info('check user success', user);
     this.loadUserInfo(user); // Defer store.dispatch to loadUserInfo
@@ -47,13 +45,11 @@ In `src/store/AmplifyBridge.js`, add `loadUserInfo` method and combine its resul
 
 ## 2. Daily Album
 
-To keep it simple, we organize our journal base on datetime. One album per day.
+To keep it simple, we organize our journal base on datetime. One album per day. Path of an album is `$user_id$/$time_stamp$/`.
 
 Modify `src/pages/Home.jsx`
 
-Path of an album is `$user_id$/$time_stamp$/`
-
-```
+```javascript
 const padding = n => {
   return n > 9 ? n : '0' + n;
 }
@@ -73,9 +69,9 @@ const album_path = user_id => {
 
 ```
 
-`S3Album` from `aws-amplify-react` is super easy. Give it a `path` is enough. Turn on `picker` so we can upload photos.
+`S3Album` from `aws-amplify-react` is super easy. Give it a `path` property. Turn on `picker` so we can upload photos.
 
-```
+```javascript
   render() {
     const { user } = this.props;
 
@@ -92,7 +88,7 @@ const album_path = user_id => {
 
 Amplify components are theme based. Add a little styling for adjustments.
 
-```
+```javascript
 const theme = {
   photoImg: {
     maxWidth: '100%'
@@ -105,7 +101,7 @@ const theme = {
 
 Then render with `theme`
 
-```
+```javascript
         <S3Album path={album_path(user.id)} theme={theme} picker />
 
 ```
@@ -122,13 +118,13 @@ Create `src/components/album/Album.jsx`
 
 Import `Storage` module from Amplify
 
-```
+```javascript
 import { Storage } from 'aws-amplify';
 ```
 
 Load items to render
 
-```
+```javascript
   load() {
     const { path } = this.props;
     Storage.list(path)
@@ -164,7 +160,7 @@ Of course we want image instead of the key. Let's create an `<AlbumItem>` for it
 
 Create `src/components/album/AlbumItem.jsx` with,
 
-```
+```javascript
   load() {
     const { item } = this.props;
     Storage.get(item.key)
@@ -192,7 +188,7 @@ Create `src/components/album/AlbumItem.jsx` with,
 
 Then update `src/components/album/Album.jsx`
 
-```
+```javascript
         { items.map(item => <AlbumItem key={item.key} item={item} />) }
 ```
 
@@ -202,7 +198,7 @@ Now we can see the images uploaded by `<S3Album>`. Let's build a component to up
 
 Create `src/components/album/FilePicker.jsx`, which uploads image to S3 through Amplify `Storage.put` method
 
-```
+```javascript
   uploadFile(file) {
     const { path } = this.props;
     if (!path) {
@@ -236,7 +232,7 @@ Create `src/components/album/FilePicker.jsx`, which uploads image to S3 through 
 
 In `<Album>` we listen to `FilePicker.onUploaded` event then reload.
 
-```
+```javascript
   handleUploaded(key) {
     this.load();
   }
@@ -256,7 +252,7 @@ Journal have not only images, but also text notes. Let's build a component to up
 
 Create `src/components/album/NoteEditor.jsx`, calling `Storage.put` a bit different,
 
-```
+```javascript
     Storage.put(key, JSON.stringify(note), { contentType: 'application/json' })
       .then(data => this.uploadNoteSuccess(data))
       .catch(err => this.uploadNoteError(err));
@@ -268,7 +264,7 @@ We need to update `<AlbumItem>` to render text notes correctly too.
 
 First base on key suffix, for `.json` files we choose to download the content.
 
-```
+```javascript
   load() {
     const { item } = this.props;
     if (item.key.endsWith('.json')) {
@@ -285,7 +281,7 @@ First base on key suffix, for `.json` files we choose to download the content.
 
 Then render content
 
-```
+```javascript
 const Note = props => {
   const note = JSON.parse(props.json);
   return (
@@ -301,7 +297,7 @@ const Note = props => {
 
 ## 6. Run App
 
-```
+```bash
 npm start
 ```
 
