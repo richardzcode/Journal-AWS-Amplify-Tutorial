@@ -52,7 +52,7 @@ Add to `<Main>`
 
 ## 2. Load User Attributes
 
-We call `Auth.userAttributes` to load attributes. Since we get `user` object from `<Main>` which could be from constructing `<Profile>` component or updating, so we treat both `componentDidMount` and `componentDidUpdate`
+We call `Auth.userAttributes` to load attributes. `user` is a property of `<Profile>` component. It may change after mount, so we need to listen to `componentDidUpdate` as well as `componentDidMount`
 
 ```javascript
   componentDidMount() {
@@ -65,7 +65,7 @@ We call `Auth.userAttributes` to load attributes. Since we get `user` object fro
     }
   }
 
-  loadAttributes() {
+  loadProfile() {
     const { user } = this.props;
     Auth.userAttributes(user)
       .then(data => this.loadSuccess(data))
@@ -122,7 +122,7 @@ We call `Auth.userAttributes` to load attributes. Since we get `user` object fro
   }
 ```
 
-To keep simple we just cover 'given_name' and 'family_name', which are from 'standard attributes' from Cognito:
+To keep simple we just cover 'given_name' and 'family_name', which are in 'standard attributes' list from Cognito:
 [Configuring User Pool Attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html)
 
 ## 3. Save User Attributes
