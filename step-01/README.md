@@ -9,7 +9,7 @@
 
 ## 1. Create Bootstrap React App
 
-`create-bootstrap-react-app` creates basic React App with a Bootstrap starter template.
+[create-bootstrap-react-app](https://bootstrap-4-react.com/#cbra) creates basic React App with a Bootstrap starter template.
 
 If not already installed, run
 ```bash
