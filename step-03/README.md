@@ -7,7 +7,7 @@ The default Auth UI looks good. However we just like perfection. Let's replace i
 * [3. Integrate JSignIn with Authenticator](#3-integrate-jsignin-with-authenticator)
 * [4. Federated Sign In](#4-federated-sign-in)
 * [5. Confirm Sign In](#5-confirm-sign-in)
-* [6. Check Contact Verification](#6-check-contact-verication)
+* [6. Check Contact Verification](#6-check-contact-verification)
 * [7. Sign Up](#7-sign-up)
 * [8. Replace all Auth components](#8-replace-all-auth-components)
 * [9. Run App](#9-run-app)
