@@ -7,7 +7,7 @@ Let's build a simple user profile page with some user attributes.
 * [3. Save User Attributes](#3-save-user-attributes)
 * [4. Run App](#4-run-app)
 
-## 1. Create Parofile Page
+## 1. Create Profile Page
 
 Create `src/pages/Profile.jsx`, then add to `<Navigator>`
 
